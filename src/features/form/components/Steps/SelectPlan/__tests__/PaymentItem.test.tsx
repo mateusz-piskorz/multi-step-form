@@ -1,18 +1,6 @@
 import { screen, render } from "@testing-library/react";
 import { PlanItem } from "../PlanItem";
 import icon from "../../../../assets/icon-advanced.svg";
-import { plans } from "../data";
-// <Button
-//   $selected={selectedPlan === displayedPlan}
-//   type="button"
-//   onClick={() => updateFields({ selectedPlan: displayedPlan })}
-// >
-//   <img src={planIcon} alt={`${displayedPlan} plan icon`} />
-//   <div>
-//     <h2>{firstLetterUpperCase(displayedPlan)}</h2>
-//     <CostWithPeriod cost={planCost} period={paymentPeriod} />
-//   </div>
-// </Button>;
 
 test("renders image", () => {
   const mockFunction = jest.fn();
