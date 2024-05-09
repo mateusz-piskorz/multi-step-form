@@ -4,11 +4,11 @@ import { SelectPlan } from "./components/Steps/SelectPlan";
 import { YourInfo } from "./components/Steps/YourInfo";
 import { useMultiStepForm } from "./hooks/useMultiStepForm";
 import { styled, css } from "styled-components";
-import { Button } from "./components/Button";
 import { Summary } from "./components/Steps/Summary";
 import { SelectedPlan, PaymentPeriod, FormData } from "./types";
 import { ThankYouPage } from "./components/ThankYouPage";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Navigation } from "./components/Navigation";
 
 export const Form: FC<{
   currentStepIndex: number;
@@ -30,7 +30,7 @@ export const Form: FC<{
 
   const [isFinished, setFinished] = useState(false);
 
-  const { step, isFirstStep, isLastStep, back, next, goTo } = useMultiStepForm(
+  const { step, goTo, ...navigationProps } = useMultiStepForm(
     [
       <YourInfo register={register} />,
       <SelectPlan
@@ -45,29 +45,14 @@ export const Form: FC<{
     setCurrentStepIndex
   );
 
-  const submit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-  };
-
   return (
-    <FormStyled onSubmit={handleSubmit(submit)}>
+    <FormStyled onSubmit={handleSubmit((data) => onSubmit(data))}>
       {isFinished ? (
         <ThankYouPage />
       ) : (
         <>
           {step}
-          <ButtonsWrapper>
-            {isFirstStep ? (
-              <div></div>
-            ) : (
-              <Button goBackCase={true} type="button" onClick={back}>
-                Go Back
-              </Button>
-            )}
-            <Button type="button" onClick={next}>
-              {isLastStep ? "Finish" : "Next Step"}
-            </Button>
-          </ButtonsWrapper>
+          <Navigation {...navigationProps} />
         </>
       )}
     </FormStyled>
