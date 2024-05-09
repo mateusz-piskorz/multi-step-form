@@ -3,16 +3,13 @@ import { styled, css } from "styled-components";
 import { CustomCheckbox } from "./CustomCheckbox";
 import { PaymentPeriod } from "../../../types";
 
-type PaymentPeriodData = {
+export type PaymentPeriodProps = {
   paymentPeriod: PaymentPeriod;
-};
-
-type PaymentPeriodProps = PaymentPeriodData & {
-  updateFields: (fields: Partial<PaymentPeriodData>) => void;
+  setPaymentPeriod: (val: PaymentPeriod) => void;
 };
 
 export const PaymentPeriodSelect: FC<PaymentPeriodProps> = ({
-  updateFields,
+  setPaymentPeriod,
   paymentPeriod,
 }) => {
   const isYearly = paymentPeriod === "yearly";
@@ -21,9 +18,7 @@ export const PaymentPeriodSelect: FC<PaymentPeriodProps> = ({
       <p className={!isYearly ? "selected" : ""}>Monthly</p>
       <CustomCheckbox
         isChecked={isYearly}
-        onCheck={(val: boolean) =>
-          updateFields({ paymentPeriod: val ? "yearly" : "monthly" })
-        }
+        onCheck={(val: boolean) => setPaymentPeriod(val ? "yearly" : "monthly")}
       />
 
       <p className={isYearly ? "selected" : ""}>Yearly</p>

@@ -1,28 +1,20 @@
-export const addons = {
-  onlineService: {
+export const addons = [
+  {
     name: "onlineService",
-    cost: { monthly: 1, yearly: 10 },
-    description: {
-      h2: "Online service",
-      p: "Access to multiplayer games",
-    },
+    cost: { monthly: 10, yearly: 100 },
+    description: "Access to multiplayer games",
+    title: "Online service",
   },
-  largerStorage: {
+  {
     name: "largerStorage",
-    cost: { monthly: 2, yearly: 20 },
-    description: {
-      h2: "Larger storage",
-      p: "Extra 1TB of cloud save",
-    },
+    cost: { monthly: 20, yearly: 200 },
+    description: "Extra 1TB of cloud save",
+    title: "Larger storage",
   },
-  customizableProfile: {
+  {
     name: "customizableProfile",
-    cost: { monthly: 2, yearly: 20 },
-    description: {
-      h2: "Customizable Profile",
-      p: "Custom theme on your profile",
-    },
+    cost: { monthly: 15, yearly: 150 },
+    description: "Custom theme on your profile",
+    title: "Customizable Profile",
   },
-} as const;
-
-export const addonsArr = Object.keys(addons) as Array<keyof typeof addons>;
+] as const;

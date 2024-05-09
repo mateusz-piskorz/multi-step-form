@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 
 export const useMultiStepForm = (
   steps: ReactElement[],

@@ -2,6 +2,8 @@ import { FC } from "react";
 import { FormWrapper } from "../../../layouts/FormWrapper";
 import { InfoItem } from "./InfoItem";
 import { styled, css } from "styled-components";
+import { UseFormRegister } from "react-hook-form";
+import { FormData } from "../../../types";
 
 const YourInfoWrapper = styled.div(({ theme }) => {
   return css`
@@ -11,22 +13,11 @@ const YourInfoWrapper = styled.div(({ theme }) => {
   `;
 });
 
-type YourInfoData = {
-  name: string;
-  email: string;
-  phoneNumber: string;
+type YourInfoProps = {
+  register: UseFormRegister<FormData>;
 };
 
-type YourInfoProps = YourInfoData & {
-  updateFields: (fields: Partial<YourInfoData>) => void;
-};
-
-export const YourInfo: FC<YourInfoProps> = ({
-  name,
-  email,
-  phoneNumber,
-  updateFields,
-}) => {
+export const YourInfo: FC<YourInfoProps> = ({ register }) => {
   return (
     <FormWrapper
       title="Personal info"
@@ -34,25 +25,25 @@ export const YourInfo: FC<YourInfoProps> = ({
     >
       <YourInfoWrapper>
         <InfoItem
+          register={register}
+          name="name"
           type="text"
-          inputValue={name}
           label="Name"
           placeholder="e.g. Stephen King"
-          onChangeHandler={(val) => updateFields({ name: val })}
         />
         <InfoItem
+          register={register}
+          name="email"
           type="email"
-          inputValue={email}
           label="Email Address"
           placeholder="e.g. stephenking@lorem.com"
-          onChangeHandler={(val) => updateFields({ email: val })}
         />
         <InfoItem
+          register={register}
+          name="phoneNumber"
           type="tel"
-          inputValue={phoneNumber}
           label="Phone Number"
           placeholder="e.g. +1 234 567 890"
-          onChangeHandler={(val) => updateFields({ phoneNumber: val })}
         />
       </YourInfoWrapper>
     </FormWrapper>

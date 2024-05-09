@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { css, styled } from "styled-components";
 import { CostWithPeriod } from "../../CostWithPeriod";
-import { SelectedPlan, AvailableAddons, PaymentPeriod } from "../../../types";
+import { SelectedPlan, AddOnType, PaymentPeriod } from "../../../types";
 import { firstLetterUpperCase } from "../../../../../utils/index";
 
 type SummaryItemProps = {
   itemCase: "heading" | "service" | "total";
   selectedPlan?: SelectedPlan;
-  displayedService?: AvailableAddons;
+  displayedService?: AddOnType;
   cost: number;
   period: PaymentPeriod;
   backToPlanSelection?: () => void;

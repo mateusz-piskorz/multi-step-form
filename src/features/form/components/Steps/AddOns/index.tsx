@@ -2,48 +2,29 @@ import { FC } from "react";
 import { FormWrapper } from "../../../layouts/FormWrapper";
 import { AddOnItem } from "./AddOnItem";
 import { styled } from "styled-components";
-import { PaymentPeriod } from "../../../types";
-import { addonsArr } from "./data";
+import { PaymentPeriod, FormData } from "../../../types";
+import { addons } from "./data";
+import { UseFormRegister } from "react-hook-form";
 
-type AddOnsData = {
-  onlineService: boolean;
-  largerStorage: boolean;
-  customizableProfile: boolean;
+type AddOnsProps = {
   paymentPeriod: PaymentPeriod;
+  register: UseFormRegister<FormData>;
 };
 
-type AddOnsProps = AddOnsData & {
-  updateFields: (fields: Partial<AddOnsData>) => void;
-};
-
-export const AddOns: FC<AddOnsProps> = ({
-  customizableProfile,
-  largerStorage,
-  onlineService,
-  updateFields,
-  paymentPeriod,
-}) => {
-  const addonsArrWithChecked = addonsArr.map((e) => {
-    return {
-      name: e,
-      isChecked: { customizableProfile, largerStorage, onlineService }[e],
-    };
-  });
-
+export const AddOns: FC<AddOnsProps> = ({ register, paymentPeriod }) => {
   return (
     <FormWrapper
       title="Pick add-ons"
       description="Add-ons help enhance your gaming experience."
     >
       <AddOnsWrapper>
-        {addonsArrWithChecked.map((addon) => {
+        {addons.map((addOn) => {
           return (
             <AddOnItem
-              key={addon.name}
-              displayedAddOn={addon.name}
-              isChecked={addon.isChecked}
+              key={addOn.name}
+              addOn={addOn}
+              register={register}
               paymentPeriod={paymentPeriod}
-              onCheck={(val) => updateFields({ [addon.name]: val })}
             />
           );
         })}

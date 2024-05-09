@@ -1,24 +1,20 @@
 import { FC } from "react";
 import { FormWrapper } from "../../../layouts/FormWrapper";
 import { PlanItem } from "./PlanItem";
-import { PaymentPeriodSelect } from "./PaymentPeriodSelect";
+import { PaymentPeriodSelect, PaymentPeriodProps } from "./PaymentPeriodSelect";
 import { styled } from "styled-components";
 import { plansArr } from "./data";
-import { PaymentPeriod, SelectedPlan } from "../../../types";
+import { FormData } from "../../../types";
+import { UseFormRegister } from "react-hook-form";
 
-type SelectPlanData = {
-  selectedPlan: SelectedPlan;
-  paymentPeriod: PaymentPeriod;
-};
-
-type SelectPLanProps = SelectPlanData & {
-  updateFields: (fields: Partial<SelectPlanData>) => void;
+type SelectPLanProps = PaymentPeriodProps & {
+  register: UseFormRegister<FormData>;
 };
 
 export const SelectPlan: FC<SelectPLanProps> = ({
-  selectedPlan,
-  updateFields,
+  register,
   paymentPeriod,
+  setPaymentPeriod,
 }) => {
   return (
     <FormWrapper
@@ -30,9 +26,8 @@ export const SelectPlan: FC<SelectPLanProps> = ({
           return (
             <PlanItem
               key={plan}
-              selectedPlan={selectedPlan}
               displayedPlan={plan}
-              updateFields={updateFields}
+              register={register}
               paymentPeriod={paymentPeriod}
             />
           );
@@ -40,17 +35,18 @@ export const SelectPlan: FC<SelectPLanProps> = ({
       </PlanItemsWrapper>
       <PaymentPeriodSelect
         paymentPeriod={paymentPeriod}
-        updateFields={updateFields}
+        setPaymentPeriod={setPaymentPeriod}
       />
     </FormWrapper>
   );
 };
 
-const PlanItemsWrapper = styled.div`
+const PlanItemsWrapper = styled.fieldset`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  border: none;
   @media screen and (min-width: 768px) {
     flex-direction: row;
   }

@@ -6,65 +6,51 @@ import { useMultiStepForm } from "./hooks/useMultiStepForm";
 import { styled, css } from "styled-components";
 import { Button } from "./components/Button";
 import { Summary } from "./components/Steps/Summary";
-import { SelectedPlan, PaymentPeriod } from "./types";
+import { SelectedPlan, PaymentPeriod, FormData } from "./types";
 import { ThankYouPage } from "./components/ThankYouPage";
-
-export type FormData = {
-  selectedPlan: SelectedPlan;
-  paymentPeriod: PaymentPeriod;
-  name: string;
-  phoneNumber: string;
-  email: string;
-  onlineService: boolean;
-  largerStorage: boolean;
-  customizableProfile: boolean;
-};
-
-const INITIAL_DATA: FormData = {
-  selectedPlan: "arcade",
-  paymentPeriod: "monthly",
-  name: "",
-  phoneNumber: "",
-  email: "",
-  onlineService: true,
-  largerStorage: true,
-  customizableProfile: false,
-};
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export const Form: FC<{
   currentStepIndex: number;
   setCurrentStepIndex: React.Dispatch<React.SetStateAction<number>>;
   onSubmit: (val: FormData) => void;
 }> = ({ currentStepIndex, setCurrentStepIndex, onSubmit }) => {
-  const [data, setData] = useState(INITIAL_DATA);
+  const { register, handleSubmit, watch, setValue } = useForm<FormData>({
+    defaultValues: {
+      paymentPeriod: "monthly",
+      plan: "arcade",
+      onlineService: true,
+      largerStorage: true,
+    },
+  });
+  const paymentPeriod = watch("paymentPeriod");
+  const setPaymentPeriod = (val: PaymentPeriod) => {
+    setValue("paymentPeriod", val);
+  };
+
   const [isFinished, setFinished] = useState(false);
-  function updateFields(fields: Partial<FormData>) {
-    setData((prev) => ({ ...prev, ...fields }));
-  }
 
   const { step, isFirstStep, isLastStep, back, next, goTo } = useMultiStepForm(
     [
-      <YourInfo {...data} updateFields={updateFields} />,
-      <SelectPlan {...data} updateFields={updateFields} />,
-      <AddOns {...data} updateFields={updateFields} />,
-      <Summary {...data} backToPlanSelection={() => goTo(1)} />,
+      <YourInfo register={register} />,
+      <SelectPlan
+        paymentPeriod={paymentPeriod}
+        setPaymentPeriod={setPaymentPeriod}
+        register={register}
+      />,
+      <AddOns paymentPeriod={paymentPeriod} register={register} />,
+      // <Summary {...data} backToPlanSelection={() => goTo(1)} />,
     ],
     currentStepIndex,
     setCurrentStepIndex
   );
 
-  function submit(e: FormEvent) {
-    e.preventDefault();
-    if (!isLastStep) {
-      next();
-    } else {
-      setFinished(true);
-      onSubmit(data);
-    }
-  }
+  const submit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
+  };
 
   return (
-    <FormStyled onSubmit={submit}>
+    <FormStyled onSubmit={handleSubmit(submit)}>
       {isFinished ? (
         <ThankYouPage />
       ) : (
@@ -78,7 +64,9 @@ export const Form: FC<{
                 Go Back
               </Button>
             )}
-            <Button type="submit">{isLastStep ? "Finish" : "Next Step"}</Button>
+            <Button type="button" onClick={next}>
+              {isLastStep ? "Finish" : "Next Step"}
+            </Button>
           </ButtonsWrapper>
         </>
       )}

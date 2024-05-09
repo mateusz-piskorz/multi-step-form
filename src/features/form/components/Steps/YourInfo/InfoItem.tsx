@@ -1,5 +1,7 @@
 import { FC, useId } from "react";
+import { UseFormRegister } from "react-hook-form";
 import { styled, css } from "styled-components";
+import { FormData } from "../../../types";
 
 const InfoItemStyled = styled.div(({ theme }) => {
   return css`
@@ -42,17 +44,17 @@ const InfoItemStyled = styled.div(({ theme }) => {
 type InfoItemProps = {
   label: string;
   placeholder: string;
-  inputValue: string;
   type: "text" | "email" | "tel";
-  onChangeHandler: (value: string) => void;
+  name: "name" | "email" | "phoneNumber";
+  register: UseFormRegister<FormData>;
 };
 
 export const InfoItem: FC<InfoItemProps> = ({
   label,
   placeholder,
-  inputValue,
+  register,
   type,
-  onChangeHandler,
+  name,
 }) => {
   const id = useId();
   return (
@@ -63,8 +65,7 @@ export const InfoItem: FC<InfoItemProps> = ({
         id={id}
         type={type}
         placeholder={placeholder}
-        value={inputValue}
-        onChange={(e) => onChangeHandler(e.target.value)}
+        {...register(name)}
       />
     </InfoItemStyled>
   );

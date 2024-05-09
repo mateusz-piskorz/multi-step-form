@@ -4,7 +4,7 @@ import { styled, css } from "styled-components";
 import { SummaryItem } from "./SummaryItem";
 import { plans } from "../SelectPlan/data";
 import { addons } from "../AddOns/data";
-import { AvailableAddons, PaymentPeriod, SelectedPlan } from "../../../types";
+import { AddOnType, PaymentPeriod, SelectedPlan } from "../../../types";
 
 type SummaryData = {
   selectedPlan: SelectedPlan;
@@ -23,49 +23,50 @@ export const Summary: FC<SummaryData> = ({
   selectedPlan,
   backToPlanSelection,
 }) => {
-  const addonsArr = Object.entries({
-    onlineService,
-    largerStorage,
-    customizableProfile,
-  })
-    .map((e) => {
-      const addonName = e[0] as AvailableAddons;
-      const addonValue = e[1];
-      const addonCost =
-        addons[addonName].cost[
-          paymentPeriod === "monthly" ? "monthly" : "yearly"
-        ];
-      if (addonValue) {
-        return {
-          addonName,
-          paymentPeriod,
-          addonCost,
-        };
-      }
-    })
-    .filter((item) => item) as {
-    addonName: "customizableProfile" | "largerStorage" | "onlineService";
-    paymentPeriod: PaymentPeriod;
-    addonCost: 2 | 1 | 10 | 20;
-  }[];
+  // const addonsArr = Object.entries({
+  //   onlineService,
+  //   largerStorage,
+  //   customizableProfile,
+  // })
+  //   .map((e) => {
+  //     const addonName = e[0] as AddOnType;
+  //     const addonValue = e[1];
+  //     const addonCost =
+  //       addons[addonName].cost[
+  //         paymentPeriod === "monthly" ? "monthly" : "yearly"
+  //       ];
+  //     if (addonValue) {
+  //       return {
+  //         addonName,
+  //         paymentPeriod,
+  //         addonCost,
+  //       };
+  //     }
+  //   })
+  //   .filter((item) => item) as {
+  //   addonName: "customizableProfile" | "largerStorage" | "onlineService";
+  //   paymentPeriod: PaymentPeriod;
+  //   addonCost: 2 | 1 | 10 | 20;
+  // }[];
 
-  const planCost =
-    plans[selectedPlan].cost[
-      paymentPeriod === "monthly" ? "monthly" : "yearly"
-    ];
+  // const planCost =
+  //   plans[selectedPlan].cost[
+  //     paymentPeriod === "monthly" ? "monthly" : "yearly"
+  //   ];
 
-  const costsArr = [planCost, ...addonsArr.map((e) => e.addonCost)];
-  const totalCost = costsArr.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
+  // const costsArr = [planCost, ...addonsArr.map((e) => e.addonCost)];
+  // const totalCost = costsArr.reduce(
+  //   (accumulator, currentValue) => accumulator + currentValue,
+  //   0
+  // );
 
   return (
     <FormWrapper
       title="Finishing up"
       description="Double-check everything looks OK before confirming."
     >
-      <Wrapper>
+      <h1>hi</h1>
+      {/* <Wrapper>
         <SummaryItem
           cost={planCost}
           itemCase="heading"
@@ -88,7 +89,7 @@ export const Summary: FC<SummaryData> = ({
           }
         })}
       </Wrapper>
-      <SummaryItem cost={totalCost} itemCase="total" period={paymentPeriod} />
+      <SummaryItem cost={totalCost} itemCase="total" period={paymentPeriod} /> */}
     </FormWrapper>
   );
 };

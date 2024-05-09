@@ -1,76 +1,86 @@
-import { FC, useRef } from "react";
+import { FC, useId, useRef } from "react";
 import { styled, css } from "styled-components";
 import { CostWithPeriod } from "../../CostWithPeriod";
-import { PaymentPeriod } from "../../../types";
+import { PaymentPeriod, FormData } from "../../../types";
 import { addons } from "./data";
+import { AddOn } from "./types";
+import { UseFormRegister } from "react-hook-form";
 
 type AddOnItemProps = {
-  displayedAddOn: "onlineService" | "largerStorage" | "customizableProfile";
+  addOn: AddOn;
   paymentPeriod: PaymentPeriod;
-  isChecked: boolean;
-  onCheck: (val: boolean) => void;
+  register: UseFormRegister<FormData>;
 };
 
 export const AddOnItem: FC<AddOnItemProps> = ({
-  displayedAddOn,
-  isChecked,
+  addOn: { cost, description, name, title },
+  register,
   paymentPeriod,
-  onCheck,
 }) => {
-  const addon = addons[displayedAddOn];
-  const addonCost =
-    addon.cost[paymentPeriod === "monthly" ? "monthly" : "yearly"];
-  const { h2, p } = addon.description;
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const checkInput = (e: React.MouseEvent) => {
-    if (inputRef.current && e.target !== inputRef.current) {
-      onCheck(!isChecked);
-    }
-  };
+  const addonCost = cost[paymentPeriod === "monthly" ? "monthly" : "yearly"];
+  const id = useId();
+  const { styledComponentId: AddOnItem } = StyledAddOnItem;
   return (
-    <Container onClick={checkInput} $selected={isChecked}>
+    <StyledAddOnItem $className={AddOnItem}>
       <input
-        ref={inputRef}
+        id={id}
+        className={`${AddOnItem}_input`}
         type="checkbox"
-        checked={isChecked}
-        onChange={(e) => onCheck(e.target.checked)}
+        {...register(name)}
       />
-      <div>
-        <h2>{h2}</h2>
-        <p>{p}</p>
-      </div>
-      <CostWithPeriod period={paymentPeriod} cost={addonCost} />
-    </Container>
+      <label className={`${AddOnItem}_label`} htmlFor={id}>
+        <div>
+          <h2>{title}</h2>
+          <p>{description}</p>
+        </div>
+        <CostWithPeriod period={paymentPeriod} cost={addonCost} />
+      </label>
+    </StyledAddOnItem>
   );
 };
 
-const Container = styled.div<{ $selected?: boolean }>(
-  ({ theme, $selected }) => {
+const StyledAddOnItem = styled.div<{ $className: string }>(
+  ({ theme, $className }) => {
     return css`
-      cursor: pointer;
-      display: flex;
-      padding: 15px;
-      gap: 15px;
-      border: 1px solid ${$selected ? theme.purplishBlue : theme.coolGray};
-      border-radius: 7px;
-      background-color: ${$selected ? theme.magnolia : "white"};
-      align-items: center;
-      > input {
-        width: 20px;
-        height: 20px;
-      }
-
-      > div {
-        flex-grow: 1;
-        > h2 {
-          margin-bottom: 5px;
-          font-size: 0.9rem;
-          color: ${theme.marineBlue};
+      position: relative;
+      .${$className} {
+        &_input {
+          top: 50%;
+          transform: translateY(-50%);
+          left: 15px;
+          position: absolute;
+          width: 20px;
+          height: 20px;
         }
-        > p {
-          font-size: 0.8rem;
-          color: ${theme.coolGray};
+
+        &_input:checked ~ label {
+          border: 1px solid ${theme.purplishBlue};
+          background-color: ${theme.magnolia};
+        }
+
+        &_label {
+          cursor: pointer;
+          display: flex;
+          padding: 15px;
+          padding-left: 50px;
+          gap: 15px;
+          border: 1px solid ${theme.coolGray};
+          background-color: "white";
+          border-radius: 7px;
+          align-items: center;
+
+          > div {
+            flex-grow: 1;
+            > h2 {
+              margin-bottom: 5px;
+              font-size: 0.9rem;
+              color: ${theme.marineBlue};
+            }
+            > p {
+              font-size: 0.8rem;
+              color: ${theme.coolGray};
+            }
+          }
         }
       }
 
