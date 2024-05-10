@@ -8,7 +8,24 @@ const defaultProps = {
   isLastStep: false,
 };
 
-it("works", () => {
+it("doesn't display back button if first step", () => {
+  render(<Navigation {...defaultProps} isFirstStep={true} />);
+  expect(screen.queryByText("Go Back")).toBeNull();
+});
+
+it("calls back func on button click", () => {
   render(<Navigation {...defaultProps} />);
-  expect(true).toBe(true);
+  screen.getByText("Go Back").click();
+  expect(defaultProps.back).toHaveBeenCalled();
+});
+
+it("displays finish button if last step", () => {
+  render(<Navigation {...defaultProps} isLastStep={true} />);
+  expect(screen.getByText("Finish")).toHaveAttribute("type", "submit");
+});
+
+it("calls next func on button click", () => {
+  render(<Navigation {...defaultProps} />);
+  screen.getByText("Next Step").click();
+  expect(defaultProps.next).toHaveBeenCalled();
 });
