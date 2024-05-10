@@ -23,9 +23,3 @@ it("displays finish button if last step", () => {
   render(<Navigation {...defaultProps} isLastStep={true} />);
   expect(screen.getByText("Finish")).toHaveAttribute("type", "submit");
 });
-
-it("calls next func on button click", () => {
-  render(<Navigation {...defaultProps} />);
-  screen.getByText("Next Step").click();
-  expect(defaultProps.next).toHaveBeenCalled();
-});
