@@ -1,5 +1,4 @@
 import { PaymentPeriodType } from "./features/SelectPlan";
-export type { AddOnType } from "./components/Steps/AddOns/types";
 
 export type FormData = {
   name: string;

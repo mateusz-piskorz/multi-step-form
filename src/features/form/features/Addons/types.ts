@@ -1,10 +1,10 @@
-export type AddOnType =
+export type AddonType =
   | "onlineService"
   | "largerStorage"
   | "customizableProfile";
 
-export type AddOn = {
-  name: AddOnType;
+export type Addon = {
+  name: AddonType;
   cost: { monthly: number; yearly: number };
   title: string;
   description: string;

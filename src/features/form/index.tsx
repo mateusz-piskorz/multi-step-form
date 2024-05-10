@@ -1,5 +1,5 @@
 import { FC, useState, FormEvent } from "react";
-// import { AddOns } from "./components/Steps/AddOns";
+import { Addons } from "./features/Addons";
 import { SelectPlan, PaymentPeriodType } from "./features/SelectPlan";
 import { YourInfo } from "./features/YourInfo";
 import { useMultiStepForm } from "./hooks/useMultiStepForm";
@@ -39,7 +39,7 @@ export const Form: FC<{
         setPaymentPeriod={setPaymentPeriod}
         register={register}
       />,
-      // <AddOns paymentPeriod={paymentPeriod} register={register} />,
+      <Addons paymentPeriod={paymentPeriod} register={register} />,
       // <Summary {...data} backToPlanSelection={() => goTo(1)} />,
     ],
     currentStepIndex,
