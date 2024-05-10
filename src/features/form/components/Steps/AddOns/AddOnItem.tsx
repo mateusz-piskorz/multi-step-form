@@ -1,8 +1,7 @@
 import { FC, useId, useRef } from "react";
 import { styled, css } from "styled-components";
-import { CostWithPeriod } from "../../CostWithPeriod";
+import { Cost } from "../../Cost";
 import { PaymentPeriod, FormData } from "../../../types";
-import { addons } from "./data";
 import { AddOn } from "./types";
 import { UseFormRegister } from "react-hook-form";
 
@@ -33,7 +32,7 @@ export const AddOnItem: FC<AddOnItemProps> = ({
           <h2>{title}</h2>
           <p>{description}</p>
         </div>
-        <CostWithPeriod period={paymentPeriod} cost={addonCost} />
+        <Cost plusIcon period={paymentPeriod} cost={addonCost} />
       </label>
     </StyledAddOnItem>
   );
