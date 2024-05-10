@@ -1,11 +1,12 @@
 import { FC } from "react";
-import { FormWrapper } from "../../../layouts/FormWrapper";
-import { PlanItem } from "./PlanItem";
-import { PaymentPeriodSelect, PaymentPeriodProps } from "./PaymentPeriodSelect";
+import { FormWrapper } from "../../layouts/FormWrapper";
+import { PlanItem } from "./components/PlanItem";
+import { PaymentPeriod, PaymentPeriodProps } from "./components/PaymentPeriod";
 import { styled } from "styled-components";
-import { plansArr } from "./data";
-import { FormData } from "../../../types";
+import { plans } from "./data";
+import { FormData } from "../../types";
 import { UseFormRegister } from "react-hook-form";
+export type { PaymentPeriodType, PlanType } from "./types";
 
 type SelectPLanProps = PaymentPeriodProps & {
   register: UseFormRegister<FormData>;
@@ -22,18 +23,18 @@ export const SelectPlan: FC<SelectPLanProps> = ({
       description="You have the option of monthly or yearly billing."
     >
       <PlanItemsWrapper>
-        {plansArr.map((plan) => {
+        {plans.map((plan) => {
           return (
             <PlanItem
-              key={plan}
-              displayedPlan={plan}
+              key={plan.name}
+              plan={plan}
               register={register}
               paymentPeriod={paymentPeriod}
             />
           );
         })}
       </PlanItemsWrapper>
-      <PaymentPeriodSelect
+      <PaymentPeriod
         paymentPeriod={paymentPeriod}
         setPaymentPeriod={setPaymentPeriod}
       />
@@ -47,6 +48,7 @@ const PlanItemsWrapper = styled.fieldset`
   flex-direction: column;
   gap: 15px;
   border: none;
+
   @media screen and (min-width: 768px) {
     flex-direction: row;
   }

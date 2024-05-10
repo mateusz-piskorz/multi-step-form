@@ -2,7 +2,6 @@ import { FC } from "react";
 import styled, { css } from "styled-components";
 
 type NavigationProps = {
-  next: () => void;
   back: () => void;
   isFirstStep: Boolean;
   isLastStep: Boolean;
@@ -10,7 +9,6 @@ type NavigationProps = {
 
 export const Navigation: FC<NavigationProps> = ({
   back,
-  next,
   isFirstStep,
   isLastStep,
 }) => {
@@ -28,11 +26,7 @@ export const Navigation: FC<NavigationProps> = ({
           Go Back
         </button>
       )}
-      <button
-        className={`${Navigation}_button`}
-        onClick={isLastStep ? () => {} : next}
-        type={isLastStep ? "submit" : "button"}
-      >
+      <button className={`${Navigation}_button`} type={"submit"}>
         {isLastStep ? "Finish" : "Next Step"}
       </button>
     </StyledNavigation>

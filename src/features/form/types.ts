@@ -1,8 +1,5 @@
-import { plansArr } from "./components/Steps/SelectPlan/data";
+import { PaymentPeriodType } from "./features/SelectPlan";
 export type { AddOnType } from "./components/Steps/AddOns/types";
-
-export type SelectedPlan = (typeof plansArr)[number];
-export type PaymentPeriod = "monthly" | "yearly";
 
 export type FormData = {
   name: string;
@@ -12,5 +9,5 @@ export type FormData = {
   onlineService: boolean;
   largerStorage: boolean;
   customizableProfile: boolean;
-  paymentPeriod: PaymentPeriod;
+  paymentPeriod: PaymentPeriodType;
 };

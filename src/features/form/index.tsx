@@ -1,11 +1,12 @@
 import { FC, useState, FormEvent } from "react";
-import { AddOns } from "./components/Steps/AddOns";
-import { SelectPlan } from "./components/Steps/SelectPlan";
-import { YourInfo } from "./components/Steps/YourInfo";
+// import { AddOns } from "./components/Steps/AddOns";
+import { SelectPlan, PaymentPeriodType } from "./features/SelectPlan";
+import { YourInfo } from "./features/YourInfo";
 import { useMultiStepForm } from "./hooks/useMultiStepForm";
 import { styled, css } from "styled-components";
-import { Summary } from "./components/Steps/Summary";
-import { SelectedPlan, PaymentPeriod, FormData } from "./types";
+// import { Summary } from "./components/Steps/Summary";
+import { FormData } from "./types";
+
 import { ThankYouPage } from "./components/ThankYouPage";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Navigation } from "./components/Navigation";
@@ -24,13 +25,13 @@ export const Form: FC<{
     },
   });
   const paymentPeriod = watch("paymentPeriod");
-  const setPaymentPeriod = (val: PaymentPeriod) => {
+  const setPaymentPeriod = (val: PaymentPeriodType) => {
     setValue("paymentPeriod", val);
   };
 
   const [isFinished, setFinished] = useState(false);
 
-  const { step, goTo, ...navigationProps } = useMultiStepForm(
+  const { step, goTo, next, isLastStep, ...navigationProps } = useMultiStepForm(
     [
       <YourInfo register={register} />,
       <SelectPlan
@@ -38,7 +39,7 @@ export const Form: FC<{
         setPaymentPeriod={setPaymentPeriod}
         register={register}
       />,
-      <AddOns paymentPeriod={paymentPeriod} register={register} />,
+      // <AddOns paymentPeriod={paymentPeriod} register={register} />,
       // <Summary {...data} backToPlanSelection={() => goTo(1)} />,
     ],
     currentStepIndex,
@@ -46,13 +47,15 @@ export const Form: FC<{
   );
 
   return (
-    <FormStyled onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <FormStyled
+      onSubmit={handleSubmit((data) => (isLastStep ? onSubmit(data) : next()))}
+    >
       {isFinished ? (
         <ThankYouPage />
       ) : (
         <>
           {step}
-          <Navigation {...navigationProps} />
+          <Navigation {...navigationProps} isLastStep={isLastStep} />
         </>
       )}
     </FormStyled>
