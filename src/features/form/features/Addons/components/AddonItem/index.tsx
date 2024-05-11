@@ -1,32 +1,35 @@
-import { FC, useId, useRef } from "react";
+import { FC, useId } from "react";
 import { styled, css } from "styled-components";
 import { Cost } from "../../../Cost";
-import { FormData } from "../../../../types";
 import { PaymentPeriodType } from "../../../SelectPlan";
 import { Addon } from "../../types";
-import { UseFormRegister } from "react-hook-form";
 
 type AddOnItemProps = {
-  addOn: Addon;
+  addon: Addon;
   paymentPeriod: PaymentPeriodType;
-  register: UseFormRegister<FormData>;
+  changeHandler: (props: React.ChangeEvent<HTMLInputElement>) => void;
+  checked: boolean;
 };
 
-export const AddOnItem: FC<AddOnItemProps> = ({
-  addOn: { cost, description, name, title },
-  register,
+export const AddonItem: FC<AddOnItemProps> = ({
+  addon: { cost, description, name, title },
+  changeHandler,
   paymentPeriod,
+  checked,
 }) => {
   const addonCost = cost[paymentPeriod === "monthly" ? "monthly" : "yearly"];
   const id = useId();
   const { styledComponentId: AddOnItem } = StyledAddOnItem;
+
   return (
     <StyledAddOnItem $className={AddOnItem}>
       <input
         id={id}
+        value={name}
         className={`${AddOnItem}_input`}
         type="checkbox"
-        {...register(name)}
+        onChange={changeHandler}
+        checked={checked}
       />
       <label className={`${AddOnItem}_label`} htmlFor={id}>
         <div className={`${AddOnItem}_descriptionWrapper`}>

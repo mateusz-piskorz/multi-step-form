@@ -1,30 +1,48 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { FormWrapper } from "../../layouts/FormWrapper";
-import { AddOnItem } from "./components/AddonItem";
+import { AddonItem } from "./components/AddonItem";
 import { styled } from "styled-components";
 import { FormData } from "../../types";
 import { PaymentPeriodType } from "../SelectPlan";
-import { addons } from "./data";
+import { addonsArr } from "./data";
 import { UseFormRegister } from "react-hook-form";
+import { AddonType } from "./types";
+
+export type { AddonType } from "./types";
 
 type AddonsProps = {
   paymentPeriod: PaymentPeriodType;
-  register: UseFormRegister<FormData>;
+  addons: AddonType[];
+  setAddons: (props: AddonType[]) => void;
 };
 
-export const Addons: FC<AddonsProps> = ({ register, paymentPeriod }) => {
+export const Addons: FC<AddonsProps> = ({
+  addons,
+  setAddons,
+  paymentPeriod,
+}) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = event.target;
+    if (checked) {
+      setAddons([...addons, value as AddonType]);
+    } else {
+      setAddons(addons.filter((addon) => addon !== value));
+    }
+  };
+
   return (
     <FormWrapper
       title="Pick add-ons"
       description="Add-ons help enhance your gaming experience."
     >
       <AddonsWrapper>
-        {addons.map((addOn) => {
+        {addonsArr.map((addon) => {
           return (
-            <AddOnItem
-              key={addOn.name}
-              addOn={addOn}
-              register={register}
+            <AddonItem
+              checked={!!addons.find((e) => e === addon.name)}
+              key={addon.name}
+              addon={addon}
+              changeHandler={changeHandler}
               paymentPeriod={paymentPeriod}
             />
           );

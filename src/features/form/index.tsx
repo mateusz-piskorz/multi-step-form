@@ -5,6 +5,7 @@ import { YourInfo } from "./features/YourInfo";
 import { useMultiStepForm } from "./hooks/useMultiStepForm";
 import { styled, css } from "styled-components";
 // import { Summary } from "./components/Steps/Summary";
+import { AddonType } from "./features/Addons";
 import { FormData } from "./types";
 
 import { ThankYouPage } from "./components/ThankYouPage";
@@ -20,11 +21,16 @@ export const Form: FC<{
     defaultValues: {
       paymentPeriod: "monthly",
       plan: "arcade",
-      onlineService: true,
-      largerStorage: true,
+      addons: ["onlineService", "largerStorage"],
     },
   });
   const paymentPeriod = watch("paymentPeriod");
+  const plan = watch("plan");
+  const addons = watch("addons");
+  const setAddons = (val: AddonType[]) => {
+    setValue("addons", val);
+  };
+
   const setPaymentPeriod = (val: PaymentPeriodType) => {
     setValue("paymentPeriod", val);
   };
@@ -39,7 +45,11 @@ export const Form: FC<{
         setPaymentPeriod={setPaymentPeriod}
         register={register}
       />,
-      <Addons paymentPeriod={paymentPeriod} register={register} />,
+      <Addons
+        addons={addons}
+        setAddons={setAddons}
+        paymentPeriod={paymentPeriod}
+      />,
       // <Summary {...data} backToPlanSelection={() => goTo(1)} />,
     ],
     currentStepIndex,

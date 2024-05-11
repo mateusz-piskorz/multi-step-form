@@ -2,9 +2,9 @@ export {};
 
 // import { FC } from "react";
 // import { css, styled } from "styled-components";
-// import { CostWithPeriod } from "../../CostWithPeriod";
-// import { SelectedPlan, AddOnType, PaymentPeriod } from "../../../types";
-// import { firstLetterUpperCase } from "../../../../../utils/index";
+// import { Cost } from "../../../Cost";
+// import { FormData } from "../../../../types";
+// import { firstLetterUpperCase } from "../../../../../../utils";
 
 // type SummaryItemProps = {
 //   itemCase: "heading" | "service" | "total";

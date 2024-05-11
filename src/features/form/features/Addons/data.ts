@@ -1,4 +1,4 @@
-export const addons = [
+export const addonsArr = [
   {
     name: "onlineService",
     cost: { monthly: 10, yearly: 100 },
