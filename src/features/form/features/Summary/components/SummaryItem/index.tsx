@@ -29,76 +29,81 @@ export const SummaryItem: FC<SummaryItemProps> = ({
 
   const isHeading = itemCase === "heading" && !!selectedPlan;
 
+  const { styledComponentId: SummaryItem } = StyledSummaryItem;
   return (
-    <Item $isTotal={itemCase === "total"}>
+    <StyledSummaryItem $className={SummaryItem} $isTotal={itemCase === "total"}>
       {isHeading ? (
         <div>
-          <h2>
+          <h2 className={`${SummaryItem}_title`}>
             {firstLetterUpperCase(selectedPlan)} {periodText.plan}
           </h2>
-          <button onClick={backToPlanSelection} type="button">
+          <button
+            onClick={backToPlanSelection}
+            type="button"
+            className={`${SummaryItem}_button`}
+          >
             Change
           </button>
         </div>
       ) : (
-        <p className="description">
+        <p className={`${SummaryItem}_description`}>
           {itemCase === "service" ? displayedService : totalText}
         </p>
       )}
 
       <Cost
-        plusIcon
         gray={isHeading || itemCase === "service"}
         bold={isHeading || itemCase === "total"}
         cost={cost}
         period={period}
       />
-    </Item>
+    </StyledSummaryItem>
   );
 };
 
-const Item = styled.div<{ $isTotal: boolean }>(({ theme, $isTotal }) => {
-  return css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    ${$isTotal && "padding: 20px"};
+const StyledSummaryItem = styled.div<{ $isTotal: boolean; $className: string }>(
+  ({ theme, $isTotal, $className }) => {
+    return css`
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      ${$isTotal && "padding: 20px"};
 
-    > div {
-      > button {
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid ${theme.coolGray};
-        color: ${theme.coolGray};
-        font-size: 0.9rem;
-        cursor: pointer;
-        &:hover {
-          border-color: ${theme.purplishBlue};
-          color: ${theme.purplishBlue};
+      .${$className} {
+        &_title {
+          font-size: 1rem;
+          color: ${theme.marineBlue};
+        }
+
+        &_button {
+          background-color: transparent;
+          border: none;
+          border-bottom: 1px solid ${theme.coolGray};
+          color: ${theme.coolGray};
+          font-size: 0.9rem;
+          cursor: pointer;
+          &:hover {
+            border-color: ${theme.purplishBlue};
+            color: ${theme.purplishBlue};
+          }
+        }
+
+        &_description {
+          font-size: 1rem;
+          color: ${theme.coolGray};
         }
       }
-      > h2 {
-        font-size: 1rem;
-        color: ${theme.marineBlue};
-      }
-    }
-    > p {
-      font-size: 1rem;
-    }
 
-    > p.description {
-      color: ${theme.coolGray};
-    }
-
-    @media screen and (min-width: 768px) {
-      > span {
-        > h2 {
-          font-size: 1.1rem;
+      @media screen and (min-width: 768px) {
+        .${$className} {
+          &_title {
+            font-size: 1.1rem;
+          }
+          &_description {
+            font-size: 1.1rem;
+          }
         }
       }
-      > p {
-        font-size: 1.1rem;
-      }
-    }
-  `;
-});
+    `;
+  }
+);

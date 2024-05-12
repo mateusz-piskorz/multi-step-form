@@ -19,10 +19,6 @@ export const GlobalStyle = createGlobalStyle(
       background-color: ${theme.magnolia};
       font-family: ${theme.fontFamilyRaleway};
     }
-
-    p {
-      font-size: 1rem;
-    }
   `
 );
 
