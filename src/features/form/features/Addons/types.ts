@@ -1,7 +1,4 @@
-export type AddonType =
-  | "onlineService"
-  | "largerStorage"
-  | "customizableProfile";
+import { AddonType } from "../../types";
 
 export type Addon = {
   name: AddonType;

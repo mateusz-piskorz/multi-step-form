@@ -1,13 +1,15 @@
-import { PaymentPeriodType } from "./features/SelectPlan";
-import { AddonType } from "./features/Addons";
-
 export type PlanType = "arcade" | "advanced" | "pro";
+export type AddonType =
+  | "onlineService"
+  | "largerStorage"
+  | "customizableProfile";
+export type PaymentPeriodType = "monthly" | "yearly";
 
 export type FormData = {
   name: string;
   email: string;
   phoneNumber: string;
-  plan: PlanType;
-  addons: AddonType[];
+  selectedPlan: PlanType;
+  selectedAddons: AddonType[];
   paymentPeriod: PaymentPeriodType;
 };

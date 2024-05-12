@@ -1,12 +1,12 @@
-import { FC, useState, FormEvent } from "react";
+import { FC, useState } from "react";
 import { Addons } from "./features/Addons";
-import { SelectPlan, PaymentPeriodType } from "./features/SelectPlan";
+import { SelectPlan } from "./features/SelectPlan";
 import { YourInfo } from "./features/YourInfo";
 import { useMultiStepForm } from "./hooks/useMultiStepForm";
 import { styled, css } from "styled-components";
-// import { Summary } from "./components/Steps/Summary";
-import { AddonType } from "./features/Addons";
-import { FormData } from "./types";
+import { Summary } from "./features/Summary";
+
+import { FormData, PaymentPeriodType, AddonType } from "./types";
 
 import { ThankYouPage } from "./components/ThankYouPage";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -20,15 +20,16 @@ export const Form: FC<{
   const { register, handleSubmit, watch, setValue } = useForm<FormData>({
     defaultValues: {
       paymentPeriod: "monthly",
-      plan: "arcade",
-      addons: ["onlineService", "largerStorage"],
+      selectedPlan: "arcade",
+      selectedAddons: ["onlineService", "largerStorage"],
     },
   });
   const paymentPeriod = watch("paymentPeriod");
-  const plan = watch("plan");
-  const addons = watch("addons");
+  const selectedPlan = watch("selectedPlan");
+  const selectedAddons = watch("selectedAddons");
+
   const setAddons = (val: AddonType[]) => {
-    setValue("addons", val);
+    setValue("selectedAddons", val);
   };
 
   const setPaymentPeriod = (val: PaymentPeriodType) => {
@@ -46,11 +47,16 @@ export const Form: FC<{
         register={register}
       />,
       <Addons
-        addons={addons}
+        selectedAddons={selectedAddons}
         setAddons={setAddons}
         paymentPeriod={paymentPeriod}
       />,
-      // <Summary {...data} backToPlanSelection={() => goTo(1)} />,
+      <Summary
+        paymentPeriod={paymentPeriod}
+        selectedAddons={selectedAddons}
+        selectedPlan={selectedPlan}
+        backToPlanSelection={() => goTo(1)}
+      />,
     ],
     currentStepIndex,
     setCurrentStepIndex

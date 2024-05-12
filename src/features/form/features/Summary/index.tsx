@@ -1,116 +1,78 @@
-export {};
-// import { FC } from "react";
-// import { FormWrapper } from "../../../layouts/FormWrapper";
-// import { styled, css } from "styled-components";
-// import { SummaryItem } from "./SummaryItem";
-// import { plans } from "../SelectPlan/data";
-// import { addons } from "../AddOns/data";
-// import { AddOnType, PaymentPeriod, SelectedPlan } from "../../../types";
+import { FC } from "react";
+import { FormWrapper } from "../../layouts/FormWrapper";
+import { styled, css } from "styled-components";
+import { SummaryItem } from "./components/SummaryItem";
+import { AddonType, PaymentPeriodType, PlanType } from "../../types";
+import { addons } from "../Addons";
+import { plans } from "../SelectPlan";
 
-// type SummaryData = {
-//   selectedPlan: SelectedPlan;
-//   paymentPeriod: PaymentPeriod;
-//   onlineService: boolean;
-//   largerStorage: boolean;
-//   customizableProfile: boolean;
-//   backToPlanSelection: () => void;
-// };
+type SummaryData = {
+  selectedPlan: PlanType;
+  paymentPeriod: PaymentPeriodType;
+  selectedAddons: AddonType[];
+  backToPlanSelection: () => void;
+};
 
-// export const Summary: FC<SummaryData> = ({
-//   customizableProfile,
-//   largerStorage,
-//   onlineService,
-//   paymentPeriod,
-//   selectedPlan,
-//   backToPlanSelection,
-// }) => {
-//   // const addonsArr = Object.entries({
-//   //   onlineService,
-//   //   largerStorage,
-//   //   customizableProfile,
-//   // })
-//   //   .map((e) => {
-//   //     const addonName = e[0] as AddOnType;
-//   //     const addonValue = e[1];
-//   //     const addonCost =
-//   //       addons[addonName].cost[
-//   //         paymentPeriod === "monthly" ? "monthly" : "yearly"
-//   //       ];
-//   //     if (addonValue) {
-//   //       return {
-//   //         addonName,
-//   //         paymentPeriod,
-//   //         addonCost,
-//   //       };
-//   //     }
-//   //   })
-//   //   .filter((item) => item) as {
-//   //   addonName: "customizableProfile" | "largerStorage" | "onlineService";
-//   //   paymentPeriod: PaymentPeriod;
-//   //   addonCost: 2 | 1 | 10 | 20;
-//   // }[];
+export const Summary: FC<SummaryData> = ({
+  paymentPeriod,
+  selectedPlan,
+  selectedAddons,
+  backToPlanSelection,
+}) => {
+  const planCost = plans.find((p) => p.name === selectedPlan)?.cost[
+    paymentPeriod
+  ];
+  const filteredAddons = addons.filter(({ name }) =>
+    selectedAddons.includes(name)
+  );
 
-//   // const planCost =
-//   //   plans[selectedPlan].cost[
-//   //     paymentPeriod === "monthly" ? "monthly" : "yearly"
-//   //   ];
+  return (
+    <FormWrapper
+      title="Finishing up"
+      description="Double-check everything looks OK before confirming."
+    >
+      <Wrapper>
+        <SummaryItem
+          cost={planCost!}
+          itemCase="heading"
+          period={paymentPeriod}
+          selectedPlan={selectedPlan}
+          backToPlanSelection={backToPlanSelection}
+        />
+        <hr />
+        {filteredAddons.map((addon) => {
+          return (
+            <SummaryItem
+              key={addon.name}
+              cost={addon.cost[paymentPeriod]}
+              period={paymentPeriod}
+              itemCase="service"
+              displayedService={addon.name}
+            />
+          );
+        })}
+      </Wrapper>
+      <SummaryItem cost={500000} itemCase="total" period={paymentPeriod} />
+    </FormWrapper>
+  );
+};
 
-//   // const costsArr = [planCost, ...addonsArr.map((e) => e.addonCost)];
-//   // const totalCost = costsArr.reduce(
-//   //   (accumulator, currentValue) => accumulator + currentValue,
-//   //   0
-//   // );
+const Wrapper = styled.div(({ theme }) => {
+  return css`
+    background-color: ${theme.magnolia};
+    border-radius: 7px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    > hr {
+      height: 1px;
+      background-color: ${theme.lightGray};
+      border: none;
+    }
 
-//   return (
-//     <FormWrapper
-//       title="Finishing up"
-//       description="Double-check everything looks OK before confirming."
-//     >
-//       <h1>hi</h1>
-//       {/* <Wrapper>
-//         <SummaryItem
-//           cost={planCost}
-//           itemCase="heading"
-//           period={paymentPeriod}
-//           selectedPlan={selectedPlan}
-//           backToPlanSelection={backToPlanSelection}
-//         />
-//         <hr />
-//         {addonsArr.map((addon) => {
-//           if (addon) {
-//             return (
-//               <SummaryItem
-//                 key={addon.addonName}
-//                 cost={addon.addonCost}
-//                 period={addon.paymentPeriod}
-//                 itemCase="service"
-//                 displayedService={addon.addonName}
-//               />
-//             );
-//           }
-//         })}
-//       </Wrapper>
-//       <SummaryItem cost={totalCost} itemCase="total" period={paymentPeriod} /> */}
-//     </FormWrapper>
-//   );
-// };
-
-// const Wrapper = styled.div(({ theme }) => {
-//   return css`
-//     background-color: ${theme.magnolia};
-//     border-radius: 7px;
-//     padding: 20px;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 15px;
-//     > hr {
-//       height: 1px;
-//       background-color: ${theme.lightGray};
-//       border: none;
-//     }
-
-//     @media screen and (min-width: 768px) {
-//       gap: 25px;
-//     }
-//   `;
-// });
+    @media screen and (min-width: 768px) {
+      gap: 25px;
+    }
+  `;
+});

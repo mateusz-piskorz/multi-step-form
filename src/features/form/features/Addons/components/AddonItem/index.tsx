@@ -1,7 +1,7 @@
 import { FC, useId } from "react";
 import { styled, css } from "styled-components";
 import { Cost } from "../../../Cost";
-import { PaymentPeriodType } from "../../../SelectPlan";
+import { PaymentPeriodType } from "../../../../types";
 import { Addon } from "../../types";
 
 type AddOnItemProps = {

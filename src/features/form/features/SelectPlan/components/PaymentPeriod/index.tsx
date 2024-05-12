@@ -1,7 +1,7 @@
-import { FC, ChangeEvent } from "react";
+import { FC } from "react";
 import { styled, css } from "styled-components";
 import { Checkbox } from "../Checkbox";
-import { PaymentPeriodType } from "../../types";
+import { PaymentPeriodType } from "../../../../types";
 
 export type PaymentPeriodProps = {
   paymentPeriod: PaymentPeriodType;

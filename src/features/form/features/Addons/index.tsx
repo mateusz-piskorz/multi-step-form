@@ -2,31 +2,27 @@ import { FC, useState } from "react";
 import { FormWrapper } from "../../layouts/FormWrapper";
 import { AddonItem } from "./components/AddonItem";
 import { styled } from "styled-components";
-import { FormData } from "../../types";
-import { PaymentPeriodType } from "../SelectPlan";
-import { addonsArr } from "./data";
-import { UseFormRegister } from "react-hook-form";
-import { AddonType } from "./types";
-
-export type { AddonType } from "./types";
+import { AddonType, PaymentPeriodType } from "../../types";
+import { addons } from "./data";
+export { addons };
 
 type AddonsProps = {
   paymentPeriod: PaymentPeriodType;
-  addons: AddonType[];
+  selectedAddons: AddonType[];
   setAddons: (props: AddonType[]) => void;
 };
 
 export const Addons: FC<AddonsProps> = ({
-  addons,
+  selectedAddons,
   setAddons,
   paymentPeriod,
 }) => {
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
     if (checked) {
-      setAddons([...addons, value as AddonType]);
+      setAddons([...selectedAddons, value as AddonType]);
     } else {
-      setAddons(addons.filter((addon) => addon !== value));
+      setAddons(selectedAddons.filter((addon) => addon !== value));
     }
   };
 
@@ -36,10 +32,10 @@ export const Addons: FC<AddonsProps> = ({
       description="Add-ons help enhance your gaming experience."
     >
       <AddonsWrapper>
-        {addonsArr.map((addon) => {
+        {addons.map((addon) => {
           return (
             <AddonItem
-              checked={!!addons.find((e) => e === addon.name)}
+              checked={selectedAddons.includes(addon.name)}
               key={addon.name}
               addon={addon}
               changeHandler={changeHandler}

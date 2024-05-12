@@ -6,7 +6,8 @@ import { styled } from "styled-components";
 import { plans } from "./data";
 import { FormData } from "../../types";
 import { UseFormRegister } from "react-hook-form";
-export type { PaymentPeriodType, PlanType } from "./types";
+
+export { plans };
 
 type SelectPLanProps = PaymentPeriodProps & {
   register: UseFormRegister<FormData>;

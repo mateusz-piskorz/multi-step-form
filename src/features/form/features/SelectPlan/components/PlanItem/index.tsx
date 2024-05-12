@@ -2,8 +2,8 @@ import { FC, useId } from "react";
 import { firstLetterUpperCase } from "../../../../../../utils";
 import { StyledPlanItem } from "./PlanItem.styled";
 import { Cost } from "../../../Cost";
-import { FormData } from "../../../../types";
-import { Plan, PaymentPeriodType } from "../../types";
+import { FormData, PaymentPeriodType } from "../../../../types";
+import { Plan } from "../../types";
 import { UseFormRegister } from "react-hook-form";
 
 type PlanItemProps = {
@@ -28,7 +28,7 @@ export const PlanItem: FC<PlanItemProps> = ({
         className={`${PlanItem}_input`}
         id={id}
         type="radio"
-        {...register("plan")}
+        {...register("selectedPlan")}
         value={name}
       />
       <label htmlFor={id} className={`${PlanItem}_label`}>
