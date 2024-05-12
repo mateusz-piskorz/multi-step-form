@@ -25,6 +25,10 @@ export const Summary: FC<SummaryData> = ({
   const filteredAddons = addons.filter(({ name }) =>
     selectedAddons.includes(name)
   );
+  const addonsCost = filteredAddons.reduce((acc, currentVal) => {
+    const cost = currentVal.cost[paymentPeriod];
+    return acc + cost;
+  }, 0);
 
   return (
     <FormWrapper
@@ -52,7 +56,11 @@ export const Summary: FC<SummaryData> = ({
           );
         })}
       </Wrapper>
-      <SummaryItem cost={500000} itemCase="total" period={paymentPeriod} />
+      <SummaryItem
+        cost={addonsCost + planCost!}
+        itemCase="total"
+        period={paymentPeriod}
+      />
     </FormWrapper>
   );
 };

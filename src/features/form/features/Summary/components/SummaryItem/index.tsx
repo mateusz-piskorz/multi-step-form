@@ -32,14 +32,14 @@ export const SummaryItem: FC<SummaryItemProps> = ({
   return (
     <Item $isTotal={itemCase === "total"}>
       {isHeading ? (
-        <span>
+        <div>
           <h2>
             {firstLetterUpperCase(selectedPlan)} {periodText.plan}
           </h2>
           <button onClick={backToPlanSelection} type="button">
             Change
           </button>
-        </span>
+        </div>
       ) : (
         <p className="description">
           {itemCase === "service" ? displayedService : totalText}
@@ -64,7 +64,7 @@ const Item = styled.div<{ $isTotal: boolean }>(({ theme, $isTotal }) => {
     align-items: center;
     ${$isTotal && "padding: 20px"};
 
-    > span {
+    > div {
       > button {
         background-color: transparent;
         border: none;
