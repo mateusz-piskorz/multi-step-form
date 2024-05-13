@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { styled, css } from "styled-components";
+import { PaymentPeriodType } from "../../types";
 
 type CostProps = {
   cost: number;
-  period: "monthly" | "yearly";
+  period: PaymentPeriodType;
   gray?: boolean;
   bold?: boolean;
   plusIcon?: boolean;
@@ -19,9 +20,9 @@ export const Cost: FC<CostProps> = ({ cost, period, gray, bold, plusIcon }) => {
 };
 
 const StyledCost = styled.p<{ $gray?: boolean; $bold?: boolean }>(
-  ({ theme, $gray, $bold }) => {
+  ({ theme: { coolGray, marineBlue }, $gray, $bold }) => {
     return css`
-      color: ${$gray ? theme.coolGray : theme.marineBlue};
+      color: ${$gray ? coolGray : marineBlue};
       ${$bold && "font-weight:bold"};
 
       @media screen and (min-width: 1024px) {
