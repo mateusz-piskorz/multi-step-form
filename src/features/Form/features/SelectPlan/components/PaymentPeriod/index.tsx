@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { styled, css } from "styled-components";
 import { Checkbox } from "../Checkbox";
-import { PaymentPeriodType } from "../../../../types";
 import { useForm } from "../../../../context";
 
 export const PaymentPeriod: FC = () => {

@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { PaymentPeriod } from "./index";
+import { useForm } from "../../../../context";
 
+const CheckboxProps = jest.fn();
 jest.mock("../Checkbox", () => ({
-  Checkbox: jest.fn(() => <div data-testId="Checkbox" />),
+  Checkbox: jest.fn((props) => CheckboxProps(props)),
 }));
 
 it("displays Monthly", () => {
@@ -15,7 +17,21 @@ it("displays Yearly", () => {
   expect(screen.getByText("Yearly")).toBeInTheDocument();
 });
 
-it("displays Checkbox", () => {
+it("displays unchecked Checkbox", () => {
   render(<PaymentPeriod />);
-  expect(screen.getByTestId("Checkbox")).toBeInTheDocument();
+  expect(CheckboxProps).toHaveBeenCalledWith(
+    expect.objectContaining({ isChecked: false })
+  );
+});
+
+it("displays checked Checkbox if period is yearly", () => {
+  (useForm as jest.Mock<any>).mockReturnValue({
+    watch: () => {
+      "yearly";
+    },
+  });
+  render(<PaymentPeriod />);
+  expect(CheckboxProps).toHaveBeenCalledWith(
+    expect.objectContaining({ isChecked: false })
+  );
 });
