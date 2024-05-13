@@ -1,23 +1,13 @@
 import { FC } from "react";
 import { FormWrapper } from "../../layouts/FormWrapper";
 import { PlanItem } from "./components/PlanItem";
-import { PaymentPeriod, PaymentPeriodProps } from "./components/PaymentPeriod";
+import { PaymentPeriod } from "./components/PaymentPeriod";
 import { styled } from "styled-components";
 import { plans } from "./data";
-import { FormData } from "../../types";
-import { UseFormRegister } from "react-hook-form";
 
 export { plans };
 
-type SelectPLanProps = PaymentPeriodProps & {
-  register: UseFormRegister<FormData>;
-};
-
-export const SelectPlan: FC<SelectPLanProps> = ({
-  register,
-  paymentPeriod,
-  setPaymentPeriod,
-}) => {
+export const SelectPlan: FC = () => {
   return (
     <FormWrapper
       title="Select your plan"
@@ -25,20 +15,10 @@ export const SelectPlan: FC<SelectPLanProps> = ({
     >
       <PlanItemsWrapper>
         {plans.map((plan) => {
-          return (
-            <PlanItem
-              key={plan.name}
-              plan={plan}
-              register={register}
-              paymentPeriod={paymentPeriod}
-            />
-          );
+          return <PlanItem key={plan.name} plan={plan} />;
         })}
       </PlanItemsWrapper>
-      <PaymentPeriod
-        paymentPeriod={paymentPeriod}
-        setPaymentPeriod={setPaymentPeriod}
-      />
+      <PaymentPeriod />
     </FormWrapper>
   );
 };

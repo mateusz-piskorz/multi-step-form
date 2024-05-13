@@ -4,25 +4,22 @@ import { AddonItem } from "./components/AddonItem";
 import { styled } from "styled-components";
 import { AddonType, PaymentPeriodType } from "../../types";
 import { addons } from "./data";
+import { useForm } from "../../context";
 export { addons };
 
-type AddonsProps = {
-  paymentPeriod: PaymentPeriodType;
-  selectedAddons: AddonType[];
-  setAddons: (props: AddonType[]) => void;
-};
-
-export const Addons: FC<AddonsProps> = ({
-  selectedAddons,
-  setAddons,
-  paymentPeriod,
-}) => {
+export const Addons: FC = () => {
+  const { setValue, watch } = useForm();
+  const paymentPeriod = watch("paymentPeriod");
+  const selectedAddons = watch("selectedAddons");
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
     if (checked) {
-      setAddons([...selectedAddons, value as AddonType]);
+      setValue("selectedAddons", [...selectedAddons, value as AddonType]);
     } else {
-      setAddons(selectedAddons.filter((addon) => addon !== value));
+      setValue(
+        "selectedAddons",
+        selectedAddons.filter((addon) => addon !== value)
+      );
     }
   };
 

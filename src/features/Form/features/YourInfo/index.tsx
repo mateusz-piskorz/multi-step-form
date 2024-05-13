@@ -2,14 +2,8 @@ import { FC } from "react";
 import { FormWrapper } from "../../layouts/FormWrapper";
 import { InfoInput } from "./components/InfoInput";
 import { styled, css } from "styled-components";
-import { UseFormRegister } from "react-hook-form";
-import { FormData } from "../../types";
 
-type YourInfoProps = {
-  register: UseFormRegister<FormData>;
-};
-
-export const YourInfo: FC<YourInfoProps> = ({ register }) => {
+export const YourInfo: FC = () => {
   return (
     <FormWrapper
       title="Personal info"
@@ -17,21 +11,18 @@ export const YourInfo: FC<YourInfoProps> = ({ register }) => {
     >
       <StyledYourInfo>
         <InfoInput
-          register={register}
           name="name"
           type="text"
           label="Name"
           placeholder="e.g. Stephen King"
         />
         <InfoInput
-          register={register}
           name="email"
           type="email"
           label="Email Address"
           placeholder="e.g. stephenking@lorem.com"
         />
         <InfoInput
-          register={register}
           name="phoneNumber"
           type="tel"
           label="Phone Number"

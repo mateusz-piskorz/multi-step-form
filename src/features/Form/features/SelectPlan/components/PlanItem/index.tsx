@@ -2,21 +2,16 @@ import { FC, useId } from "react";
 import { firstLetterUpperCase } from "../../../../../../utils";
 import { StyledPlanItem } from "./PlanItem.styled";
 import { Cost } from "../../../Cost";
-import { FormData, PaymentPeriodType } from "../../../../types";
 import { Plan } from "../../types";
-import { UseFormRegister } from "react-hook-form";
+import { useForm } from "../../../../context";
 
 type PlanItemProps = {
-  paymentPeriod: PaymentPeriodType;
   plan: Plan;
-  register: UseFormRegister<FormData>;
 };
 
-export const PlanItem: FC<PlanItemProps> = ({
-  plan: { cost, name },
-  paymentPeriod,
-  register,
-}) => {
+export const PlanItem: FC<PlanItemProps> = ({ plan: { cost, name } }) => {
+  const { watch, register } = useForm();
+  const paymentPeriod = watch("paymentPeriod");
   const id = useId();
   const planIcon = require(`../../assets/icon-${name}.svg`);
   const planCost = cost[paymentPeriod === "monthly" ? "monthly" : "yearly"];

@@ -15,7 +15,7 @@ jest.mock("../../layouts/FormWrapper", () => ({
 }));
 
 it("displays FormWrapper", async () => {
-  render(<YourInfo register={jest.fn()} />);
+  render(<YourInfo />);
   expect(FormWrapperProps).toHaveBeenCalledWith({
     description: "Please provide your name, email address, and phone number.",
     title: "Personal info",
@@ -23,7 +23,7 @@ it("displays FormWrapper", async () => {
 });
 
 it("displays InfoInput", async () => {
-  render(<YourInfo register={jest.fn()} />);
+  render(<YourInfo />);
   expect(InfoInputProps).toHaveBeenCalledWith(
     expect.objectContaining({
       label: "Name",

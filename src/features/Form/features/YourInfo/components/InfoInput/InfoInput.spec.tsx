@@ -5,7 +5,6 @@ const defaultProps = {
   label: "label",
   name: "name",
   placeholder: "placeholder",
-  register: jest.fn(),
   type: "text",
 } as const;
 

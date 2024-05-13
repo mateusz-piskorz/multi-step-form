@@ -38,7 +38,7 @@ it("displays Cost", () => {
 });
 
 it("displays Cost yearly", () => {
-  render(<PlanItem {...defaultProps} paymentPeriod="yearly" />);
+  render(<PlanItem {...defaultProps} />);
   expect(CostProps).toHaveBeenCalledWith({
     cost: defaultProps.plan.cost.yearly,
     period: "yearly",

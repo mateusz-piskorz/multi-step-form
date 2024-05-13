@@ -5,20 +5,18 @@ import { SummaryItem } from "./components/SummaryItem";
 import { AddonType, PaymentPeriodType, PlanType } from "../../types";
 import { addons } from "../Addons";
 import { plans } from "../SelectPlan";
+import { useForm } from "../../context";
 
 type SummaryData = {
-  selectedPlan: PlanType;
-  paymentPeriod: PaymentPeriodType;
-  selectedAddons: AddonType[];
   backToPlanSelection: () => void;
 };
 
-export const Summary: FC<SummaryData> = ({
-  paymentPeriod,
-  selectedPlan,
-  selectedAddons,
-  backToPlanSelection,
-}) => {
+export const Summary: FC<SummaryData> = ({ backToPlanSelection }) => {
+  const { watch } = useForm();
+  const paymentPeriod = watch("paymentPeriod");
+  const selectedPlan = watch("selectedPlan");
+  const selectedAddons = watch("selectedAddons");
+
   const planCost = plans.find((p) => p.name === selectedPlan)?.cost[
     paymentPeriod
   ];

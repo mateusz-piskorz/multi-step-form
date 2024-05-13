@@ -2,16 +2,12 @@ import { FC } from "react";
 import { styled, css } from "styled-components";
 import { Checkbox } from "../Checkbox";
 import { PaymentPeriodType } from "../../../../types";
+import { useForm } from "../../../../context";
 
-export type PaymentPeriodProps = {
-  paymentPeriod: PaymentPeriodType;
-  setPaymentPeriod: (val: PaymentPeriodType) => void;
-};
+export const PaymentPeriod: FC = () => {
+  const { watch, setValue } = useForm();
+  const paymentPeriod = watch("paymentPeriod");
 
-export const PaymentPeriod: FC<PaymentPeriodProps> = ({
-  setPaymentPeriod,
-  paymentPeriod,
-}) => {
   const isYearly = paymentPeriod === "yearly";
   const { styledComponentId: PaymentPeriod } = StyledPaymentPeriod;
 
@@ -26,7 +22,9 @@ export const PaymentPeriod: FC<PaymentPeriodProps> = ({
       </p>
       <Checkbox
         isChecked={isYearly}
-        onCheck={(val: boolean) => setPaymentPeriod(val ? "yearly" : "monthly")}
+        onCheck={(val: boolean) =>
+          setValue("paymentPeriod", val ? "yearly" : "monthly")
+        }
       />
       <p
         className={`${PaymentPeriod}_period${
