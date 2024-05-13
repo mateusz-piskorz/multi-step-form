@@ -7,6 +7,7 @@ jest.mock("../src/features/Form/context", () => ({
     watch: jest.fn((props) => {
       const obj = {
         paymentPeriod: "monthly",
+        selectedAddons: ["onlineService"],
       } as any;
       console.log(obj[props]);
       return obj[props];

@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { FormWrapper } from "../../layouts/FormWrapper";
 import { AddonItem } from "./components/AddonItem";
 import { styled } from "styled-components";
-import { AddonType, PaymentPeriodType } from "../../types";
+import { AddonType } from "../../types";
 import { addons } from "./data";
 import { useForm } from "../../context";
 export { addons };
