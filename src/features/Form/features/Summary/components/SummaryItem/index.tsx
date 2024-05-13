@@ -1,42 +1,37 @@
 import { FC } from "react";
 import { css, styled } from "styled-components";
 import { Cost } from "../../../Cost";
-import { PlanType, AddonType, PaymentPeriodType } from "../../../../types";
-import { firstLetterUpperCase } from "../../../../../../utils";
+import { useForm } from "../../../../context";
 
 type SummaryItemProps = {
-  itemCase: "heading" | "service" | "total";
-  selectedPlan?: PlanType;
-  displayedService?: AddonType;
+  text: string;
   cost: number;
-  period: PaymentPeriodType;
+  extraPadding?: boolean;
+  boldText?: boolean;
+  boldCost?: boolean;
   backToPlanSelection?: () => void;
 };
 
 export const SummaryItem: FC<SummaryItemProps> = ({
-  itemCase,
+  extraPadding,
+  boldCost,
+  boldText,
+  text,
   cost,
-  period,
-  displayedService,
-  selectedPlan,
   backToPlanSelection,
 }) => {
-  const periodText =
-    period === "yearly"
-      ? { plan: "(Yearly)", total: "(per year)" }
-      : { plan: "(Monthly)", total: "(per month)" };
-  const totalText = `Total ${periodText.total}`;
-
-  const isHeading = itemCase === "heading" && !!selectedPlan;
+  const { watch } = useForm();
+  const paymentPeriod = watch("paymentPeriod");
 
   const { styledComponentId: SummaryItem } = StyledSummaryItem;
+  const descriptionClassName = `${SummaryItem}_description${
+    boldText ? ` ${SummaryItem}_description--bold` : ""
+  }`;
   return (
-    <StyledSummaryItem $className={SummaryItem} $isTotal={itemCase === "total"}>
-      {isHeading ? (
-        <div>
-          <h2 className={`${SummaryItem}_title`}>
-            {firstLetterUpperCase(selectedPlan)} {periodText.plan}
-          </h2>
+    <StyledSummaryItem $extraPadding={!!extraPadding} $className={SummaryItem}>
+      <div>
+        <p className={descriptionClassName}>{text}</p>
+        {backToPlanSelection && (
           <button
             onClick={backToPlanSelection}
             type="button"
@@ -44,66 +39,63 @@ export const SummaryItem: FC<SummaryItemProps> = ({
           >
             Change
           </button>
-        </div>
-      ) : (
-        <p className={`${SummaryItem}_description`}>
-          {itemCase === "service" ? displayedService : totalText}
-        </p>
-      )}
+        )}
+      </div>
 
       <Cost
-        gray={isHeading || itemCase === "service"}
-        bold={isHeading || itemCase === "total"}
+        gray={!boldCost}
+        bold={boldCost}
         cost={cost}
-        period={period}
+        period={paymentPeriod}
       />
     </StyledSummaryItem>
   );
 };
 
-const StyledSummaryItem = styled.div<{ $isTotal: boolean; $className: string }>(
-  ({ theme, $isTotal, $className }) => {
-    return css`
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      ${$isTotal && "padding: 20px"};
+const StyledSummaryItem = styled.div<{
+  $className: string;
+  $extraPadding: boolean;
+}>(({ theme, $className, $extraPadding }) => {
+  return css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: ${$extraPadding ? "20px" : "0"};
 
+    .${$className} {
+      &_button {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid ${theme.coolGray};
+        color: ${theme.coolGray};
+        font-size: 0.9rem;
+        cursor: pointer;
+        &:hover {
+          border-color: ${theme.purplishBlue};
+          color: ${theme.purplishBlue};
+        }
+      }
+
+      &_description {
+        font-size: 1rem;
+        color: ${theme.coolGray};
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      &_description--bold {
+        color: ${theme.marineBlue};
+        font-weight: bold;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
       .${$className} {
-        &_title {
-          font-size: 1rem;
-          color: ${theme.marineBlue};
-        }
-
-        &_button {
-          background-color: transparent;
-          border: none;
-          border-bottom: 1px solid ${theme.coolGray};
-          color: ${theme.coolGray};
-          font-size: 0.9rem;
-          cursor: pointer;
-          &:hover {
-            border-color: ${theme.purplishBlue};
-            color: ${theme.purplishBlue};
-          }
-        }
-
         &_description {
-          font-size: 1rem;
-          color: ${theme.coolGray};
+          font-size: 1.1rem;
         }
       }
-
-      @media screen and (min-width: 768px) {
-        .${$className} {
-          &_title {
-            font-size: 1.1rem;
-          }
-          &_description {
-            font-size: 1.1rem;
-          }
-        }
-      }
-    `;
-  }
-);
+    }
+  `;
+});

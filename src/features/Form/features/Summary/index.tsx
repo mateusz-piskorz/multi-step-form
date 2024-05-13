@@ -2,7 +2,6 @@ import { FC } from "react";
 import { FormWrapper } from "../../layouts/FormWrapper";
 import { styled, css } from "styled-components";
 import { SummaryItem } from "./components/SummaryItem";
-import { AddonType, PaymentPeriodType, PlanType } from "../../types";
 import { addons } from "../Addons";
 import { plans } from "../SelectPlan";
 import { useForm } from "../../context";
@@ -20,9 +19,11 @@ export const Summary: FC<SummaryData> = ({ backToPlanSelection }) => {
   const planCost = plans.find((p) => p.name === selectedPlan)?.cost[
     paymentPeriod
   ];
+
   const filteredAddons = addons.filter(({ name }) =>
     selectedAddons.includes(name)
   );
+
   const addonsCost = filteredAddons.reduce((acc, currentVal) => {
     const cost = currentVal.cost[paymentPeriod];
     return acc + cost;
@@ -36,10 +37,9 @@ export const Summary: FC<SummaryData> = ({ backToPlanSelection }) => {
       <Wrapper>
         <SummaryItem
           cost={planCost!}
-          itemCase="heading"
-          period={paymentPeriod}
-          selectedPlan={selectedPlan}
+          text={`${selectedPlan} (${paymentPeriod})`}
           backToPlanSelection={backToPlanSelection}
+          boldText
         />
         <hr />
         {filteredAddons.map((addon) => {
@@ -47,17 +47,16 @@ export const Summary: FC<SummaryData> = ({ backToPlanSelection }) => {
             <SummaryItem
               key={addon.name}
               cost={addon.cost[paymentPeriod]}
-              period={paymentPeriod}
-              itemCase="service"
-              displayedService={addon.name}
+              text={addon.title}
             />
           );
         })}
       </Wrapper>
       <SummaryItem
+        extraPadding
+        boldCost
         cost={addonsCost + planCost!}
-        itemCase="total"
-        period={paymentPeriod}
+        text={`Total (per ${paymentPeriod === "monthly" ? "month" : "year"})`}
       />
     </FormWrapper>
   );
