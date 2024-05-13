@@ -5,7 +5,7 @@ import { useState, FC } from "react";
 import { ThankYouPage } from "./features/ThankYouPage";
 
 const stepsArr = ["Your Info", "Select Plan", "add-ons", "Summary"];
-// test
+
 const App: FC = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
