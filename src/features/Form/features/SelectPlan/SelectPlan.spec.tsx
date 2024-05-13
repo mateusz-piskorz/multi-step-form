@@ -23,12 +23,11 @@ it("displays FormWrapper", async () => {
   });
 });
 
-it("displays FormWrapper", async () => {
+it("displays PlanItem", async () => {
   render(<SelectPlan />);
   for (let plan of plans) {
     expect(PlanItemProps).toHaveBeenCalledWith(
       expect.objectContaining({
-        paymentPeriod: "monthly",
         plan,
       })
     );

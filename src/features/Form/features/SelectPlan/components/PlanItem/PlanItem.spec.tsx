@@ -1,5 +1,6 @@
 import { PlanItem } from "./index";
 import { screen, render } from "@testing-library/react";
+import { useForm } from "../../../../context";
 
 const defaultProps = {
   paymentPeriod: "monthly",
@@ -38,6 +39,10 @@ it("displays Cost", () => {
 });
 
 it("displays Cost yearly", () => {
+  (useForm as jest.Mock<any>).mockReturnValue({
+    watch: () => "yearly",
+    register: jest.fn(),
+  });
   render(<PlanItem {...defaultProps} />);
   expect(CostProps).toHaveBeenCalledWith({
     cost: defaultProps.plan.cost.yearly,
