@@ -21,7 +21,7 @@ export const Cost: FC<CostProps> = ({ cost, period, gray, bold, plusIcon }) => {
 const StyledCost = styled.p<{ $gray?: boolean; $bold?: boolean }>(
   ({ theme, $gray, $bold }) => {
     return css`
-      color: ${$gray ? theme.purplishBlue : theme.marineBlue};
+      color: ${$gray ? theme.coolGray : theme.marineBlue};
       ${$bold && "font-weight:bold"};
 
       @media screen and (min-width: 1024px) {
