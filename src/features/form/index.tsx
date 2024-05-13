@@ -5,11 +5,8 @@ import { YourInfo } from "./features/YourInfo";
 import { useMultiStepForm } from "./hooks/useMultiStepForm";
 import { styled, css } from "styled-components";
 import { Summary } from "./features/Summary";
-
 import { FormData, PaymentPeriodType, AddonType } from "./types";
-
-import { ThankYouPage } from "./components/ThankYouPage";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Navigation } from "./components/Navigation";
 
 export const Form: FC<{
@@ -35,8 +32,6 @@ export const Form: FC<{
   const setPaymentPeriod = (val: PaymentPeriodType) => {
     setValue("paymentPeriod", val);
   };
-
-  const [isFinished, setFinished] = useState(false);
 
   const { step, goTo, next, isLastStep, ...navigationProps } = useMultiStepForm(
     [
@@ -66,14 +61,8 @@ export const Form: FC<{
     <FormStyled
       onSubmit={handleSubmit((data) => (isLastStep ? onSubmit(data) : next()))}
     >
-      {isFinished ? (
-        <ThankYouPage />
-      ) : (
-        <>
-          {step}
-          <Navigation {...navigationProps} isLastStep={isLastStep} />
-        </>
-      )}
+      {step}
+      <Navigation {...navigationProps} isLastStep={isLastStep} />
     </FormStyled>
   );
 };

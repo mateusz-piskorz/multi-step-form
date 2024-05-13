@@ -1,22 +1,31 @@
 import { css, styled } from "styled-components";
-import { Form } from "./features/form";
-import { Steps } from "./features/steps";
+import { Form } from "./features/Form";
+import { Steps } from "./features/Steps";
 import { useState, FC } from "react";
+import { ThankYouPage } from "./features/ThankYouPage";
 
 const stepsArr = ["Your Info", "Select Plan", "add-ons", "Summary"];
 
 const App: FC = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   return (
     <AppWrapper>
-      <Steps stepsArr={stepsArr} activeStep={currentStepIndex} />
-      <Form
-        currentStepIndex={currentStepIndex}
-        setCurrentStepIndex={setCurrentStepIndex}
-        onSubmit={(data) => {
-          console.log(data);
-        }}
-      />
+      {isFormSubmitted ? (
+        <ThankYouPage />
+      ) : (
+        <>
+          <Steps stepsArr={stepsArr} activeStep={currentStepIndex} />
+          <Form
+            currentStepIndex={currentStepIndex}
+            setCurrentStepIndex={setCurrentStepIndex}
+            onSubmit={(data) => {
+              console.log(data);
+              setIsFormSubmitted(true);
+            }}
+          />
+        </>
+      )}
     </AppWrapper>
   );
 };

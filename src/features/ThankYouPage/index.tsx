@@ -1,10 +1,24 @@
 import { FC } from "react";
-import thankYouIcon from "../../assets/icon-thank-you.svg";
+import thankYouIcon from "./assets/icon-thank-you.svg";
 import { styled, css } from "styled-components";
-import { FormWrapper } from "../../layouts/FormWrapper";
 
-const Wrapper = styled.div(({ theme }) => {
+export const ThankYouPage: FC = () => {
+  return (
+    <StyledThankYouPage>
+      <img src={thankYouIcon} alt="thank you icon" />
+      <h2>Thank you!</h2>
+      <p>
+        Thanks for confirming your subscription! We hope you have fun using our
+        platform. If you ever need support, please feel free to email us at
+        support@loremgaming.com
+      </p>
+    </StyledThankYouPage>
+  );
+};
+
+const StyledThankYouPage = styled.div(({ theme }) => {
   return css`
+    margin: auto;
     padding: 50px 0 50px 0;
     display: flex;
     flex-direction: column;
@@ -47,19 +61,3 @@ const Wrapper = styled.div(({ theme }) => {
     }
   `;
 });
-
-export const ThankYouPage = () => {
-  return (
-    <FormWrapper>
-      <Wrapper>
-        <img src={thankYouIcon} alt="thank you icon" />
-        <h2>Thank you!</h2>
-        <p>
-          Thanks for confirming your subscription! We hope you have fun using
-          our platform. If you ever need support, please feel free to email us
-          at support@loremgaming.com
-        </p>
-      </Wrapper>
-    </FormWrapper>
-  );
-};
