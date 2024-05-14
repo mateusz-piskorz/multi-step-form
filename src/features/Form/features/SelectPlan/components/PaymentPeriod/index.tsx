@@ -20,6 +20,7 @@ export const PaymentPeriod: FC = () => {
         Monthly
       </p>
       <Checkbox
+        ariaLabel="yearly payment period"
         isChecked={isYearly}
         onCheck={(val: boolean) =>
           setValue("paymentPeriod", val ? "yearly" : "monthly")

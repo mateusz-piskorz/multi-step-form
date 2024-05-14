@@ -4,7 +4,8 @@ import { styled, css } from "styled-components";
 export const Checkbox: FC<{
   onCheck: (val: boolean) => void;
   isChecked: boolean;
-}> = ({ isChecked, onCheck }) => {
+  ariaLabel?: string;
+}> = ({ isChecked, onCheck, ariaLabel }) => {
   const id = useId();
 
   const { styledComponentId: Checkbox } = StyledCheckbox;
@@ -17,7 +18,11 @@ export const Checkbox: FC<{
         checked={isChecked}
         onChange={(e) => onCheck(e.target.checked)}
       />
-      <label className={`${Checkbox}_label`} htmlFor={id}></label>
+      <label
+        className={`${Checkbox}_label`}
+        htmlFor={id}
+        aria-label={ariaLabel}
+      ></label>
     </StyledCheckbox>
   );
 };
