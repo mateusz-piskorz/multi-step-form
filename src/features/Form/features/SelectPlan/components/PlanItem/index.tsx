@@ -7,9 +7,13 @@ import { useForm } from "../../../../context";
 
 type PlanItemProps = {
   plan: Plan;
+  autoFocus?: boolean;
 };
 
-export const PlanItem: FC<PlanItemProps> = ({ plan: { cost, name } }) => {
+export const PlanItem: FC<PlanItemProps> = ({
+  plan: { cost, name },
+  autoFocus,
+}) => {
   const { watch, register } = useForm();
   const paymentPeriod = watch("paymentPeriod");
   const id = useId();
@@ -20,6 +24,7 @@ export const PlanItem: FC<PlanItemProps> = ({ plan: { cost, name } }) => {
   return (
     <StyledPlanItem $className={PlanItem}>
       <input
+        autoFocus={autoFocus}
         className={`${PlanItem}_input`}
         id={id}
         type="radio"

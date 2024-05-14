@@ -14,8 +14,10 @@ export const SelectPlan: FC = () => {
       description="You have the option of monthly or yearly billing."
     >
       <PlanItemsWrapper>
-        {plans.map((plan) => {
-          return <PlanItem key={plan.name} plan={plan} />;
+        {plans.map((plan, index) => {
+          return (
+            <PlanItem autoFocus={index === 0} key={plan.name} plan={plan} />
+          );
         })}
       </PlanItemsWrapper>
       <PaymentPeriod />
