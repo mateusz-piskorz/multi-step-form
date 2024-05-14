@@ -8,8 +8,9 @@ jest.mock("../src/features/Form/context", () => ({
       const obj = {
         paymentPeriod: "monthly",
         selectedAddons: ["onlineService"],
+        selectedPlan: "arcade",
       } as any;
-      console.log(obj[props]);
+
       return obj[props];
     }),
     setValue: jest.fn(),
