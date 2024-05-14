@@ -9,12 +9,13 @@ type InfoInputProps = {
   placeholder: string;
   type: "text" | "email" | "tel";
   name: "name" | "email" | "phoneNumber";
+  autoFocus?: boolean;
 };
 
 export const InfoInput: FC<InfoInputProps> = ({
   label,
   placeholder,
-
+  autoFocus,
   type,
   name,
 }) => {
@@ -27,6 +28,7 @@ export const InfoInput: FC<InfoInputProps> = ({
         {label}
       </label>
       <input
+        autoFocus={autoFocus}
         className={`${InfoInput}_input`}
         required
         id={id}

@@ -11,6 +11,7 @@ export const YourInfo: FC = () => {
     >
       <StyledYourInfo>
         <InfoInput
+          autoFocus
           name="name"
           type="text"
           label="Name"
