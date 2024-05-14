@@ -11,12 +11,13 @@ export const StyledInfoInput = styled.div<{ $className: string }>(
           padding: 15px 10px 15px 10px;
           border: 1px solid ${theme.lightGray};
           border-radius: 5px;
+          font-size: 1rem;
           &::placeholder {
             padding-left: 7px;
             font-weight: 700;
             font-size: 1rem;
             color: ${theme.coolGray};
-            opacity: 1; /* Firefox */
+            opacity: 1;
           }
         }
 
@@ -31,6 +32,7 @@ export const StyledInfoInput = styled.div<{ $className: string }>(
         .${$className} {
           &_input {
             padding: 18px 12px 18px 12px;
+            font-size: 1.1rem;
             &::placeholder {
               font-size: 1.1rem;
             }
