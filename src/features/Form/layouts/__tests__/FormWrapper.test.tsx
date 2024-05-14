@@ -1,18 +1,17 @@
 import { screen, render } from "@testing-library/react";
 import { FormWrapper } from "../FormWrapper";
 
-test("renders description", () => {
-  const description = "description test";
-  render(<FormWrapper description={description} title="title" />);
+const defaultProps = {
+  description: "description",
+  title: "title",
+};
 
-  const descriptionP = screen.getByText(description);
-  expect(descriptionP).toBeInTheDocument();
+it("displays description", () => {
+  render(<FormWrapper {...defaultProps} />);
+  expect(screen.getByText(defaultProps.description)).toBeInTheDocument();
 });
 
-test("renders title", () => {
-  const title = "title test";
-  render(<FormWrapper description="description" title={title} />);
-
-  const descriptionP = screen.getByText(title);
-  expect(descriptionP).toBeInTheDocument();
+it("displays title", () => {
+  render(<FormWrapper {...defaultProps} />);
+  expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
 });
