@@ -9,6 +9,7 @@ type AddOnItemProps = {
   paymentPeriod: PaymentPeriodType;
   changeHandler: (props: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
+  autoFocus?: boolean;
 };
 
 export const AddonItem: FC<AddOnItemProps> = ({
@@ -16,6 +17,7 @@ export const AddonItem: FC<AddOnItemProps> = ({
   changeHandler,
   paymentPeriod,
   checked,
+  autoFocus,
 }) => {
   const addonCost = cost[paymentPeriod === "monthly" ? "monthly" : "yearly"];
   const id = useId();
@@ -24,6 +26,7 @@ export const AddonItem: FC<AddOnItemProps> = ({
   return (
     <StyledAddOnItem $className={AddOnItem}>
       <input
+        autoFocus={autoFocus}
         id={id}
         value={name}
         className={`${AddOnItem}_input`}

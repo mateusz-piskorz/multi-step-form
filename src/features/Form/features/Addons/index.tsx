@@ -29,9 +29,10 @@ export const Addons: FC = () => {
       description="Add-ons help enhance your gaming experience."
     >
       <AddonsWrapper>
-        {addons.map((addon) => {
+        {addons.map((addon, index) => {
           return (
             <AddonItem
+              autoFocus={index === 0}
               checked={selectedAddons.includes(addon.name)}
               key={addon.name}
               addon={addon}
