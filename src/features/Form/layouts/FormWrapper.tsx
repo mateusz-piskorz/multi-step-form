@@ -26,15 +26,13 @@ export const FormWrapper: FC<FormWrapperProps> = ({
 const StyledFormWrapper = styled.div<{ $className: string }>(
   ({ theme, $className }) => {
     return css`
+      margin: 100px auto 140px auto;
+      position: relative;
       width: 90%;
       max-width: 400px;
       background-color: white;
       border-radius: 15px;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 100px;
-      padding: 30px 25px 30px 25px;
+      padding: 30px 25px;
       display: flex;
       flex-direction: column;
       gap: 15px;
@@ -57,11 +55,9 @@ const StyledFormWrapper = styled.div<{ $className: string }>(
         gap: 5px;
         max-width: unset;
         position: relative;
-        top: unset;
-        left: unset;
-        transform: unset;
         box-shadow: none;
         width: auto;
+        margin: 0;
 
         .${$className} {
           &_description {

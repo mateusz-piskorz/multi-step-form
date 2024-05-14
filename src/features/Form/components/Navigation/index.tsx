@@ -38,7 +38,7 @@ const StyledNavigation = styled.div<{ $className: string }>(
     return css`
       display: flex;
       justify-content: space-between;
-      position: absolute;
+      position: fixed;
       bottom: 0;
       width: 100%;
       background-color: white;
@@ -70,6 +70,7 @@ const StyledNavigation = styled.div<{ $className: string }>(
 
       @media screen and (min-width: 768px) {
         background-color: transparent;
+        position: absolute;
       }
     `;
   }
