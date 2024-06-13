@@ -1,13 +1,28 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { FormWrapper } from "../../layouts/FormWrapper";
 import { PlanItem } from "./components/PlanItem";
 import { PaymentPeriod } from "./components/PaymentPeriod";
 import { styled } from "styled-components";
 import { plans } from "./data";
+import { useForm } from "../../context";
+import { useEvent } from "@owcaofficial/web-analytics";
 
 export { plans };
 
 export const SelectPlan: FC = () => {
+  const event = useEvent();
+  const { watch } = useForm();
+  const paymentPeriod = watch("paymentPeriod");
+  const selectedPlan = watch("selectedPlan");
+
+  useEffect(() => {
+    event("paymentPeriod", paymentPeriod);
+  }, [paymentPeriod]);
+
+  useEffect(() => {
+    event("selectedPlan", selectedPlan);
+  }, [selectedPlan]);
+
   return (
     <FormWrapper
       title="Select your plan"

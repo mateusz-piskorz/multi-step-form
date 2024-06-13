@@ -3,10 +3,13 @@ import { Form } from "./features/Form";
 import { Steps } from "./features/Steps";
 import { useState, FC } from "react";
 import { ThankYouPage } from "./features/ThankYouPage";
+import { useAnalytics, useEvent } from "@owcaofficial/web-analytics";
 
 const stepsArr = ["Your Info", "Select Plan", "add-ons", "Summary"];
 
 const App: FC = () => {
+  const event = useEvent();
+  useAnalytics();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   return (
@@ -20,7 +23,7 @@ const App: FC = () => {
             currentStepIndex={currentStepIndex}
             setCurrentStepIndex={setCurrentStepIndex}
             onSubmit={(data) => {
-              console.log(data);
+              event("submit-form", "submit-form");
               setIsFormSubmitted(true);
             }}
           />
