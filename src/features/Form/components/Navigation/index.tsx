@@ -1,10 +1,10 @@
-import { FC } from "react";
-import styled, { css } from "styled-components";
+import { FC } from 'react';
+import styled, { css } from 'styled-components';
 
 type NavigationProps = {
   back: () => void;
-  isFirstStep: Boolean;
-  isLastStep: Boolean;
+  isFirstStep: boolean;
+  isLastStep: boolean;
 };
 
 export const Navigation: FC<NavigationProps> = ({
@@ -26,8 +26,8 @@ export const Navigation: FC<NavigationProps> = ({
           Go Back
         </button>
       )}
-      <button className={`${Navigation}_button`} type={"submit"}>
-        {isLastStep ? "Finish" : "Next Step"}
+      <button className={`${Navigation}_button`} type={'submit'}>
+        {isLastStep ? 'Finish' : 'Next Step'}
       </button>
     </StyledNavigation>
   );
@@ -73,5 +73,5 @@ const StyledNavigation = styled.div<{ $className: string }>(
         position: absolute;
       }
     `;
-  }
+  },
 );

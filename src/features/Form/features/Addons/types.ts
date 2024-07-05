@@ -1,4 +1,4 @@
-import { AddonType } from "../../types";
+import { AddonType } from '../../types';
 
 export type Addon = {
   name: AddonType;

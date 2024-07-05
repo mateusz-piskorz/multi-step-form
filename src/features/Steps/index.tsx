@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { styled, css } from "styled-components";
-import { Step } from "./components/Step";
-import bgDesktop from "./assets/bg-sidebar-desktop.svg";
-import bgMobile from "./assets/bg-sidebar-mobile.svg";
+import { FC } from 'react';
+import { styled, css } from 'styled-components';
+import { Step } from './components/Step';
+import bgDesktop from './assets/bg-sidebar-desktop.svg';
+import bgMobile from './assets/bg-sidebar-mobile.svg';
 
 type StepsProps = {
   activeStep: number;

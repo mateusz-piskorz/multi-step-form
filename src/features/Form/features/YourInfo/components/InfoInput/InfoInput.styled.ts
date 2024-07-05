@@ -1,4 +1,4 @@
-import { styled, css } from "styled-components";
+import { styled, css } from 'styled-components';
 
 export const StyledInfoInput = styled.div<{ $className: string }>(
   ({ theme, $className }) => {
@@ -44,5 +44,5 @@ export const StyledInfoInput = styled.div<{ $className: string }>(
         }
       }
     `;
-  }
+  },
 );

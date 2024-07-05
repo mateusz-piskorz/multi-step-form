@@ -1,36 +1,36 @@
-import { PlanItem } from "./index";
-import { screen, render } from "@testing-library/react";
-import { useForm } from "../../../../context";
+import { PlanItem } from './index';
+import { screen, render } from '@testing-library/react';
+import { useForm } from '../../../../context';
 
 const defaultProps = {
-  paymentPeriod: "monthly",
-  plan: { cost: { monthly: 20, yearly: 200 }, name: "arcade" },
+  paymentPeriod: 'monthly',
+  plan: { cost: { monthly: 20, yearly: 200 }, name: 'arcade' },
   register: jest.fn(),
 } as const;
 
 const CostProps = jest.fn();
-jest.mock("../../../Cost", () => ({
+jest.mock('../../../Cost', () => ({
   Cost: jest.fn((props) => CostProps(props)),
 }));
 
-it("displays radio input", () => {
+it('displays radio input', () => {
   render(<PlanItem {...defaultProps} />);
-  expect(screen.getByRole("radio")).toBeInTheDocument();
+  expect(screen.getByRole('radio')).toBeInTheDocument();
 });
 
-it("displays plan name", () => {
+it('displays plan name', () => {
   render(<PlanItem {...defaultProps} />);
-  expect(screen.getByText("Arcade")).toBeInTheDocument();
+  expect(screen.getByText('Arcade')).toBeInTheDocument();
 });
 
-it("displays plan icon", () => {
+it('displays plan icon', () => {
   render(<PlanItem {...defaultProps} />);
   expect(
-    screen.getByAltText(`${defaultProps.plan.name} plan icon`)
+    screen.getByAltText(`${defaultProps.plan.name} plan icon`),
   ).toBeInTheDocument();
 });
 
-it("displays Cost", () => {
+it('displays Cost', () => {
   render(<PlanItem {...defaultProps} />);
   expect(CostProps).toHaveBeenCalledWith({
     cost: defaultProps.plan.cost.monthly,
@@ -38,14 +38,14 @@ it("displays Cost", () => {
   });
 });
 
-it("displays Cost yearly", () => {
-  (useForm as jest.Mock<any>).mockReturnValue({
-    watch: () => "yearly",
+it('displays Cost yearly', () => {
+  (useForm as jest.Mock).mockReturnValue({
+    watch: () => 'yearly',
     register: jest.fn(),
   });
   render(<PlanItem {...defaultProps} />);
   expect(CostProps).toHaveBeenCalledWith({
     cost: defaultProps.plan.cost.yearly,
-    period: "yearly",
+    period: 'yearly',
   });
 });

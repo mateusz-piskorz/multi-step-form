@@ -1,14 +1,12 @@
-import { FC, useId } from "react";
-import { UseFormRegister } from "react-hook-form";
-import { StyledInfoInput } from "./InfoInput.styled";
-import { FormData } from "../../../../types";
-import { useForm } from "../../../../context";
+import { FC, useId } from 'react';
+import { StyledInfoInput } from './InfoInput.styled';
+import { useForm } from '../../../../context';
 
 type InfoInputProps = {
   label: string;
   placeholder: string;
-  type: "text" | "email" | "tel";
-  name: "name" | "email" | "phoneNumber";
+  type: 'text' | 'email' | 'tel';
+  name: 'name' | 'email' | 'phoneNumber';
   autoFocus?: boolean;
 };
 

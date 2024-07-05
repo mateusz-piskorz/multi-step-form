@@ -1,5 +1,5 @@
-import { FC, useId } from "react";
-import { styled, css } from "styled-components";
+import { FC, useId } from 'react';
+import { styled, css } from 'styled-components';
 
 export const Checkbox: FC<{
   onCheck: (val: boolean) => void;
@@ -41,7 +41,7 @@ const StyledCheckbox = styled.div<{ $className: string }>(
           position: relative;
 
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             background-color: white;
             border-radius: 200px;
@@ -64,5 +64,5 @@ const StyledCheckbox = styled.div<{ $className: string }>(
         }
       }
     `;
-  }
+  },
 );

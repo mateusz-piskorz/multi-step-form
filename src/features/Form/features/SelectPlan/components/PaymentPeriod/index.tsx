@@ -1,20 +1,20 @@
-import { FC } from "react";
-import { styled, css } from "styled-components";
-import { Checkbox } from "../Checkbox";
-import { useForm } from "../../../../context";
+import { FC } from 'react';
+import { styled, css } from 'styled-components';
+import { Checkbox } from '../Checkbox';
+import { useForm } from '../../../../context';
 
 export const PaymentPeriod: FC = () => {
   const { watch, setValue } = useForm();
-  const paymentPeriod = watch("paymentPeriod");
+  const paymentPeriod = watch('paymentPeriod');
 
-  const isYearly = paymentPeriod === "yearly";
+  const isYearly = paymentPeriod === 'yearly';
   const { styledComponentId: PaymentPeriod } = StyledPaymentPeriod;
 
   return (
     <StyledPaymentPeriod $className={PaymentPeriod}>
       <p
         className={`${PaymentPeriod}_period${
-          isYearly ? "" : ` ${PaymentPeriod}_period-selected`
+          isYearly ? '' : ` ${PaymentPeriod}_period-selected`
         }`}
       >
         Monthly
@@ -23,12 +23,12 @@ export const PaymentPeriod: FC = () => {
         ariaLabel="yearly payment period"
         isChecked={isYearly}
         onCheck={(val: boolean) =>
-          setValue("paymentPeriod", val ? "yearly" : "monthly")
+          setValue('paymentPeriod', val ? 'yearly' : 'monthly')
         }
       />
       <p
         className={`${PaymentPeriod}_period${
-          isYearly ? ` ${PaymentPeriod}_period-selected` : ""
+          isYearly ? ` ${PaymentPeriod}_period-selected` : ''
         }`}
       >
         Yearly
@@ -64,5 +64,5 @@ const StyledPaymentPeriod = styled.div<{ $className: string }>(
         color: ${theme.marineBlue};
       }
     `;
-  }
+  },
 );

@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { css, styled } from "styled-components";
-import { Cost } from "../../../Cost";
-import { useForm } from "../../../../context";
+import { FC } from 'react';
+import { css, styled } from 'styled-components';
+import { Cost } from '../../../Cost';
+import { useForm } from '../../../../context';
 
 type SummaryItemProps = {
   text: string;
@@ -21,11 +21,11 @@ export const SummaryItem: FC<SummaryItemProps> = ({
   backToPlanSelection,
 }) => {
   const { watch } = useForm();
-  const paymentPeriod = watch("paymentPeriod");
+  const paymentPeriod = watch('paymentPeriod');
 
   const { styledComponentId: SummaryItem } = StyledSummaryItem;
   const descriptionClassName = `${SummaryItem}_description${
-    boldText ? ` ${SummaryItem}_description--bold` : ""
+    boldText ? ` ${SummaryItem}_description--bold` : ''
   }`;
   return (
     <StyledSummaryItem $extraPadding={!!extraPadding} $className={SummaryItem}>
@@ -60,7 +60,7 @@ const StyledSummaryItem = styled.div<{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: ${$extraPadding ? "20px" : "0"};
+    padding: ${$extraPadding ? '20px' : '0'};
 
     .${$className} {
       &_button {

@@ -1,12 +1,12 @@
-import React, { useContext, ReactNode, FC } from "react";
-import { FormData } from "../types";
+import React, { useContext, ReactNode, FC } from 'react';
+import { FormData } from '../types';
 import {
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
   useForm as useFormHook,
-} from "react-hook-form";
+} from 'react-hook-form';
 
 type ContextType = {
   register: UseFormRegister<FormData>;
@@ -17,10 +17,10 @@ type ContextType = {
 
 const Context = React.createContext<ContextType | null>(null);
 
-export const useForm = (folderId?: string) => {
+export const useForm = () => {
   const context = useContext(Context);
   if (context === null) {
-    throw new Error("useForm context is undefined");
+    throw new Error('useForm context is undefined');
   } else {
     return context;
   }
@@ -29,9 +29,9 @@ export const useForm = (folderId?: string) => {
 export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { register, handleSubmit, watch, setValue } = useFormHook<FormData>({
     defaultValues: {
-      paymentPeriod: "monthly",
-      selectedPlan: "arcade",
-      selectedAddons: ["onlineService", "largerStorage"],
+      paymentPeriod: 'monthly',
+      selectedPlan: 'arcade',
+      selectedAddons: ['onlineService', 'largerStorage'],
     },
   });
 

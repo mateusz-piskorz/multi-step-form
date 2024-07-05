@@ -1,5 +1,5 @@
-import { ReactNode, FC } from "react";
-import { styled, css } from "styled-components";
+import { ReactNode, FC } from 'react';
+import { styled, css } from 'styled-components';
 
 type FormWrapperProps = {
   title: string;
@@ -78,5 +78,5 @@ const StyledFormWrapper = styled.div<{ $className: string }>(
         }
       }
     `;
-  }
+  },
 );

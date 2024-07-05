@@ -1,9 +1,9 @@
-import { FC, useId } from "react";
-import { firstLetterUpperCase } from "../../../../../../utils";
-import { StyledPlanItem } from "./PlanItem.styled";
-import { Cost } from "../../../Cost";
-import { Plan } from "../../types";
-import { useForm } from "../../../../context";
+import { FC, useId } from 'react';
+import { firstLetterUpperCase } from '../../../../../../utils';
+import { StyledPlanItem } from './PlanItem.styled';
+import { Cost } from '../../../Cost';
+import { Plan } from '../../types';
+import { useForm } from '../../../../context';
 
 type PlanItemProps = {
   plan: Plan;
@@ -15,10 +15,11 @@ export const PlanItem: FC<PlanItemProps> = ({
   autoFocus,
 }) => {
   const { watch, register } = useForm();
-  const paymentPeriod = watch("paymentPeriod");
+  const paymentPeriod = watch('paymentPeriod');
   const id = useId();
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const planIcon = require(`../../assets/icon-${name}.svg`);
-  const planCost = cost[paymentPeriod === "monthly" ? "monthly" : "yearly"];
+  const planCost = cost[paymentPeriod === 'monthly' ? 'monthly' : 'yearly'];
 
   const { styledComponentId: PlanItem } = StyledPlanItem;
   return (
@@ -28,7 +29,7 @@ export const PlanItem: FC<PlanItemProps> = ({
         className={`${PlanItem}_input`}
         id={id}
         type="radio"
-        {...register("selectedPlan")}
+        {...register('selectedPlan')}
         value={name}
       />
       <label htmlFor={id} className={`${PlanItem}_label`}>

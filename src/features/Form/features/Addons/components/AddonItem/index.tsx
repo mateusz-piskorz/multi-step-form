@@ -1,8 +1,8 @@
-import { FC, useId } from "react";
-import { styled, css } from "styled-components";
-import { Cost } from "../../../Cost";
-import { PaymentPeriodType } from "../../../../types";
-import { Addon } from "../../types";
+import { FC, useId } from 'react';
+import { styled, css } from 'styled-components';
+import { Cost } from '../../../Cost';
+import { PaymentPeriodType } from '../../../../types';
+import { Addon } from '../../types';
 
 type AddOnItemProps = {
   addon: Addon;
@@ -19,7 +19,7 @@ export const AddonItem: FC<AddOnItemProps> = ({
   checked,
   autoFocus,
 }) => {
-  const addonCost = cost[paymentPeriod === "monthly" ? "monthly" : "yearly"];
+  const addonCost = cost[paymentPeriod === 'monthly' ? 'monthly' : 'yearly'];
   const id = useId();
   const { styledComponentId: AddOnItem } = StyledAddOnItem;
 
@@ -84,7 +84,7 @@ const StyledAddOnItem = styled.div<{ $className: string }>(
           padding-left: 50px;
           gap: 15px;
           border: 1px solid ${theme.coolGray};
-          background-color: "white";
+          background-color: 'white';
           border-radius: 7px;
           align-items: center;
         }
@@ -102,5 +102,5 @@ const StyledAddOnItem = styled.div<{ $className: string }>(
         }
       }
     `;
-  }
+  },
 );

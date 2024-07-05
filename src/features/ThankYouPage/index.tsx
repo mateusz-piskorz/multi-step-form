@@ -1,6 +1,6 @@
-import { FC } from "react";
-import thankYouIcon from "./assets/icon-thank-you.svg";
-import { styled, css } from "styled-components";
+import { FC } from 'react';
+import thankYouIcon from './assets/icon-thank-you.svg';
+import { styled, css } from 'styled-components';
 
 export const ThankYouPage: FC = () => {
   const { styledComponentId: ThankYouPage } = StyledThankYouPage;
@@ -70,5 +70,5 @@ const StyledThankYouPage = styled.div<{ $className: string }>(
         }
       }
     `;
-  }
+  },
 );

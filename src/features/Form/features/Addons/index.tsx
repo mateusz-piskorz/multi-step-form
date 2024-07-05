@@ -1,24 +1,24 @@
-import { FC } from "react";
-import { FormWrapper } from "../../layouts/FormWrapper";
-import { AddonItem } from "./components/AddonItem";
-import { styled } from "styled-components";
-import { AddonType } from "../../types";
-import { addons } from "./data";
-import { useForm } from "../../context";
+import { FC } from 'react';
+import { FormWrapper } from '../../layouts/FormWrapper';
+import { AddonItem } from './components/AddonItem';
+import { styled } from 'styled-components';
+import { AddonType } from '../../types';
+import { addons } from './data';
+import { useForm } from '../../context';
 export { addons };
 
 export const Addons: FC = () => {
   const { setValue, watch } = useForm();
-  const paymentPeriod = watch("paymentPeriod");
-  const selectedAddons = watch("selectedAddons");
+  const paymentPeriod = watch('paymentPeriod');
+  const selectedAddons = watch('selectedAddons');
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
     if (checked) {
-      setValue("selectedAddons", [...selectedAddons, value as AddonType]);
+      setValue('selectedAddons', [...selectedAddons, value as AddonType]);
     } else {
       setValue(
-        "selectedAddons",
-        selectedAddons.filter((addon) => addon !== value)
+        'selectedAddons',
+        selectedAddons.filter((addon) => addon !== value),
       );
     }
   };
