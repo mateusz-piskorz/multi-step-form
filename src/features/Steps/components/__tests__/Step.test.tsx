@@ -6,6 +6,7 @@ import { Step } from '../Step';
 //   <div className="description">
 //     <p>STEP {displayedStep}</p>
 //     <h2>{title.toUpperCase()}</h2>
+
 //   </div>
 
 // </StepStyled>;
