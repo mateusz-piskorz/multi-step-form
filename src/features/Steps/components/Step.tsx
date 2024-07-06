@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { styled, css } from "styled-components";
+import { FC } from 'react';
+import { styled, css } from 'styled-components';
 
 type StepProps = {
   title: string;
@@ -12,7 +12,7 @@ export const Step: FC<StepProps> = ({ displayedStep, selectedStep, title }) => {
 
   return (
     <StepStyled>
-      <div className={`index ${isSelected ? "selected" : ""}`}>
+      <div className={`index ${isSelected ? 'selected' : ''}`}>
         {displayedStep}
       </div>
       <div className="description">

@@ -1,11 +1,11 @@
-import { css, styled } from "styled-components";
-import { Form } from "./features/Form";
-import { Steps } from "./features/Steps";
-import { useState, FC } from "react";
-import { ThankYouPage } from "./features/ThankYouPage";
-import { useAnalytics, useEvent } from "@owcaofficial/web-analytics";
+import { css, styled } from 'styled-components';
+import { Form } from './features/Form';
+import { Steps } from './features/Steps';
+import { useState, FC } from 'react';
+import { ThankYouPage } from './features/ThankYouPage';
+import { useAnalytics, useEvent } from '@owcaofficial/web-analytics';
 
-const stepsArr = ["Your Info", "Select Plan", "add-ons", "Summary"];
+const stepsArr = ['Your Info', 'Select Plan', 'add-ons', 'Summary'];
 
 const App: FC = () => {
   const event = useEvent();
@@ -22,8 +22,8 @@ const App: FC = () => {
           <Form
             currentStepIndex={currentStepIndex}
             setCurrentStepIndex={setCurrentStepIndex}
-            onSubmit={(data) => {
-              event("submit-form", "submit-form");
+            onSubmit={() => {
+              event('submit-form', 'submit-form');
               setIsFormSubmitted(true);
             }}
           />
@@ -33,7 +33,7 @@ const App: FC = () => {
   );
 };
 
-const AppWrapper = styled.div(({ theme }) => {
+const AppWrapper = styled.div(() => {
   return css`
     @media screen and (min-width: 768px) {
       display: flex;

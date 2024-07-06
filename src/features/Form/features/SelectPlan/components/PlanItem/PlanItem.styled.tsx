@@ -1,4 +1,4 @@
-import { styled, css } from "styled-components";
+import { styled, css } from 'styled-components';
 
 export const StyledPlanItem = styled.div<{ $className: string }>(
   ({ theme, $className }) => {
@@ -53,5 +53,5 @@ export const StyledPlanItem = styled.div<{ $className: string }>(
         }
       }
     `;
-  }
+  },
 );

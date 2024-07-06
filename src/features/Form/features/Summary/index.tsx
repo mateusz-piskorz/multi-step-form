@@ -1,10 +1,10 @@
-import { FC } from "react";
-import { FormWrapper } from "../../layouts/FormWrapper";
-import { styled, css } from "styled-components";
-import { SummaryItem } from "./components/SummaryItem";
-import { addons } from "../Addons";
-import { plans } from "../SelectPlan";
-import { useForm } from "../../context";
+import { FC } from 'react';
+import { FormWrapper } from '../../layouts/FormWrapper';
+import { styled, css } from 'styled-components';
+import { SummaryItem } from './components/SummaryItem';
+import { addons } from '../Addons';
+import { plans } from '../SelectPlan';
+import { useForm } from '../../context';
 
 type SummaryData = {
   backToPlanSelection: () => void;
@@ -12,16 +12,16 @@ type SummaryData = {
 
 export const Summary: FC<SummaryData> = ({ backToPlanSelection }) => {
   const { watch } = useForm();
-  const paymentPeriod = watch("paymentPeriod");
-  const selectedPlan = watch("selectedPlan");
-  const selectedAddons = watch("selectedAddons");
+  const paymentPeriod = watch('paymentPeriod');
+  const selectedPlan = watch('selectedPlan');
+  const selectedAddons = watch('selectedAddons');
 
   const planCost = plans.find((p) => p.name === selectedPlan)?.cost[
     paymentPeriod
   ];
 
   const filteredAddons = addons.filter(({ name }) =>
-    selectedAddons.includes(name)
+    selectedAddons.includes(name),
   );
 
   const addonsCost = filteredAddons.reduce((acc, currentVal) => {
@@ -56,7 +56,7 @@ export const Summary: FC<SummaryData> = ({ backToPlanSelection }) => {
         extraPadding
         boldCost
         cost={addonsCost + planCost!}
-        text={`Total (per ${paymentPeriod === "monthly" ? "month" : "year"})`}
+        text={`Total (per ${paymentPeriod === 'monthly' ? 'month' : 'year'})`}
       />
     </FormWrapper>
   );

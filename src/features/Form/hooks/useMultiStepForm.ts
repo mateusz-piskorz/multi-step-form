@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
+import { ReactElement } from 'react';
 
 export const useMultiStepForm = (
   steps: ReactElement[],
   currentStepIndex: number,
-  setCurrentStepIndex: React.Dispatch<React.SetStateAction<number>>
+  setCurrentStepIndex: React.Dispatch<React.SetStateAction<number>>,
 ) => {
   function next() {
     setCurrentStepIndex((i) => {

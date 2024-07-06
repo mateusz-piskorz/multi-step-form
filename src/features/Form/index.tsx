@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { Addons } from "./features/Addons";
-import { SelectPlan } from "./features/SelectPlan";
-import { YourInfo } from "./features/YourInfo";
-import { useMultiStepForm } from "./hooks/useMultiStepForm";
-import { styled, css } from "styled-components";
-import { Summary } from "./features/Summary";
-import { FormData } from "./types";
-import { Navigation } from "./components/Navigation";
-import { FormProvider, useForm } from "./context";
+import { FC } from 'react';
+import { Addons } from './features/Addons';
+import { SelectPlan } from './features/SelectPlan';
+import { YourInfo } from './features/YourInfo';
+import { useMultiStepForm } from './hooks/useMultiStepForm';
+import { styled, css } from 'styled-components';
+import { Summary } from './features/Summary';
+import { FormData } from './types';
+import { Navigation } from './components/Navigation';
+import { FormProvider, useForm } from './context';
 
 type FormProps = {
   currentStepIndex: number;
@@ -32,13 +32,15 @@ export const App: FC<FormProps> = ({
 
   const { step, goTo, next, isLastStep, ...navigationProps } = useMultiStepForm(
     [
+      /* eslint-disable react/jsx-key */
       <YourInfo />,
       <SelectPlan />,
       <Addons />,
       <Summary backToPlanSelection={() => goTo(1)} />,
+      /* eslint-enable react/jsx-key */
     ],
     currentStepIndex,
-    setCurrentStepIndex
+    setCurrentStepIndex,
   );
 
   return (

@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { FormWrapper } from "../../layouts/FormWrapper";
-import { InfoInput } from "./components/InfoInput";
-import { styled, css } from "styled-components";
+import { FC } from 'react';
+import { FormWrapper } from '../../layouts/FormWrapper';
+import { InfoInput } from './components/InfoInput';
+import { styled } from 'styled-components';
 
 export const YourInfo: FC = () => {
   return (
