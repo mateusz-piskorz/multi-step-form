@@ -18,6 +18,10 @@ export const GlobalStyle = createGlobalStyle(
       background-color: ${theme.magnolia};
       font-family: ${theme.fontFamilyRaleway};
     }
+
+    .text-danger {
+      color: ${theme.strawberryRed};
+    }
   `,
 );
 

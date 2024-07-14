@@ -3,6 +3,7 @@ export type AddonType =
   | 'onlineService'
   | 'largerStorage'
   | 'customizableProfile';
+export type PaymentPeriodType = 'monthly' | 'yearly';
 
 export type FormData = {
   name: string;
@@ -10,5 +11,5 @@ export type FormData = {
   phoneNumber: string;
   selectedPlan: PlanType;
   selectedAddons: AddonType[];
-  // paymentPeriod: PaymentPeriodType;
+  paymentPeriod: PaymentPeriodType;
 };
