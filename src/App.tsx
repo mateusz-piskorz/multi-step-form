@@ -1,59 +1,35 @@
-import { css, styled } from 'styled-components';
-import { Form } from './features/Form';
-import { Steps } from './features/Steps';
-import { useState, FC } from 'react';
-import { ThankYouPage } from './features/ThankYouPage';
-import { useAnalytics, useEvent } from '@owcaofficial/web-analytics';
+import { useAnalytics } from '@owcaofficial/web-analytics';
+import { useContextForm } from './context/form';
+import { Dialog, StyledFormWrapper } from './App.styled';
+import { Stepper } from './components/Stepper';
+import { ThankYouModal } from './components/ThankYouModal';
+import { FORM_STEPER_STEPS } from './constants/formSteps';
 
-const stepsArr = ['Your Info', 'Select Plan', 'add-ons', 'Summary'];
-
-const App: FC = () => {
-  const event = useEvent();
+const App = () => {
   useAnalytics();
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const {
+    isSubmitted,
+    currentStep: { FormComponent, description, title },
+    activeIndex,
+  } = useContextForm();
+
+  const { styledComponentId: FormWrapper } = StyledFormWrapper;
   return (
-    <AppWrapper>
-      {isFormSubmitted ? (
-        <ThankYouPage />
+    <>
+      {isSubmitted ? (
+        <ThankYouModal />
       ) : (
-        <>
-          <Steps stepsArr={stepsArr} activeStep={currentStepIndex} />
-          <Form
-            currentStepIndex={currentStepIndex}
-            setCurrentStepIndex={setCurrentStepIndex}
-            onSubmit={() => {
-              event('submit-form', 'submit-form');
-              setIsFormSubmitted(true);
-            }}
-          />
-        </>
+        <Dialog>
+          <Stepper activeStep={activeIndex} stepsArr={FORM_STEPER_STEPS} />
+          <StyledFormWrapper $className={FormWrapper}>
+            <h2 className={`${FormWrapper}_title`}>{title}</h2>
+            <p className={`${FormWrapper}_description`}>{description}</p>
+            <FormComponent />
+          </StyledFormWrapper>
+        </Dialog>
       )}
-    </AppWrapper>
+    </>
   );
 };
-
-const AppWrapper = styled.div(() => {
-  return css`
-    @media screen and (min-width: 768px) {
-      display: flex;
-      width: 750px;
-      height: 550px;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      border-radius: 15px;
-    }
-
-    @media screen and (min-width: 1024px) {
-      width: 950px;
-      height: 650px;
-    }
-  `;
-});
 
 export default App;

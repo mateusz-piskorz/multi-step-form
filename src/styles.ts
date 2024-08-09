@@ -18,10 +18,14 @@ export const GlobalStyle = createGlobalStyle(
       background-color: ${theme.magnolia};
       font-family: ${theme.fontFamilyRaleway};
     }
+
+    .text-danger {
+      color: ${theme.strawberryRed};
+    }
   `,
 );
 
-export const myTheme = {
+export const theme = {
   marineBlue: 'hsl(213, 96%, 18%)',
   purplishBlue: 'hsl(243, 100%, 62%)',
   pastelBlue: 'hsl(228, 100%, 84%)',
@@ -34,7 +38,7 @@ export const myTheme = {
   fontFamilyRaleway: `'Ubuntu', sans-serif`,
 } as const;
 
-type MyTheme = typeof myTheme;
+type Theme = typeof theme;
 declare module 'styled-components' {
-  export interface DefaultTheme extends MyTheme {}
+  export interface DefaultTheme extends Theme {}
 }
