@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { plans } from '../constants/plans';
+import { PLANS } from '../constants/plans';
 
 export const personalInfoSchema = z.object({
   name: z.string().min(3),
@@ -8,7 +8,7 @@ export const personalInfoSchema = z.object({
 });
 
 export const planSchema = z.object({
-  plan: z.string().refine((val) => plans.find((plan) => plan.name === val)),
+  plan: z.string().refine((val) => PLANS.find((plan) => plan.name === val)),
   yearly: z.boolean(),
 });
 

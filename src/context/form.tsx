@@ -1,70 +1,54 @@
-import React, { useContext, ReactNode, FC, useState, useMemo } from 'react';
+import React, { useContext, ReactNode, FC, useState } from 'react';
 import { formSchema } from '../zod/formSchema';
 import { z } from 'zod';
 import usePagination from '../hooks/usePagination';
 import { FORM_STEPS } from '../constants/formSteps';
 import { FormStep } from '../types/form';
+import { DEFAULT_FORM_VALUES } from '../constants/defaultFormValues';
 
 type FormValues = z.infer<typeof formSchema>;
 
 type FormContextType = {
   activeIndex: number;
-  isLastIndex: boolean;
-  isFirstIndex: boolean;
+  isLast: boolean;
+  isFirst: boolean;
   formValues: FormValues;
   currentStep: FormStep;
+  isSubmitted: boolean;
   updateFormValues: (values: Partial<FormValues>) => void;
-  moveToNext: () => void;
   moveToPrevious: () => void;
+  submit: () => void;
+  moveTo: (index: number) => void;
 };
 
 const Context = React.createContext<FormContextType | null>(null);
 
 export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const { activeIndex, isLastIndex, isFirstIndex, moveToNext, moveToPrevious } =
-    usePagination(FORM_STEPS.length);
-  const [formValues, setFormValues] = useState<FormValues>({
-    addons: {
-      onlineService: true,
-      largerStorage: true,
-      customizableProfile: false,
-    },
-    personalInfo: {
-      name: '',
-      email: '',
-      phoneNumber: '',
-    },
-    plan: {
-      plan: 'arcade',
-      yearly: false,
-    },
-  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { activeIndex, moveToNext, ...rest } = usePagination(FORM_STEPS.length);
+  const [formValues, setFormValues] = useState<FormValues>(DEFAULT_FORM_VALUES);
 
   const updateFormValues = (updatedValues: Partial<FormValues>) => {
     setFormValues((prev) => ({ ...prev, ...updatedValues }));
+    moveToNext();
+  };
 
-    if (!isLastIndex) {
-      moveToNext();
-    } else {
-      //    show thankYou page
-    }
+  const submit = () => {
+    console.log('api called with values:', formValues);
+    setIsSubmitted(true);
   };
 
   return (
     <Context.Provider
-      value={useMemo(
-        () => ({
-          formValues,
-          activeIndex,
-          isLastIndex,
-          isFirstIndex,
-          currentStep: FORM_STEPS[activeIndex],
-          updateFormValues,
-          moveToPrevious,
-          moveToNext,
-        }),
-        [formValues, activeIndex],
-      )}
+      value={{
+        formValues,
+        activeIndex,
+        currentStep: FORM_STEPS[activeIndex],
+        isSubmitted,
+        updateFormValues,
+        submit,
+        ...rest,
+      }}
     >
       {children}
     </Context.Provider>

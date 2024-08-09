@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle, myTheme } from './styles';
+import { GlobalStyle, theme } from './styles';
 import { FormProvider } from './context/form';
 
 const root = ReactDOM.createRoot(
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={myTheme}>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <FormProvider>
         <App />

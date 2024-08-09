@@ -1,27 +1,31 @@
-import { FC } from 'react';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 export type FormStep = {
   title: string;
   description: string;
-  FormComponent: FC;
+  FormComponent: () => JSX.Element;
 };
 
-export type PlanType = 'arcade' | 'advanced' | 'pro';
-
-export type Plan = { name: string; cost: { monthly: number; yearly: number } };
-
-export type AddonType =
-  | 'onlineService'
-  | 'largerStorage'
-  | 'customizableProfile';
-
-export type PaymentPeriodType = 'monthly' | 'yearly';
-
-export type FormData = {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  selectedPlan: PlanType;
-  selectedAddons: AddonType[];
-  paymentPeriod: PaymentPeriodType;
+export type Plan = {
+  name: PlanType;
+  cost: Cost;
 };
+
+export type Addon = {
+  name: AddonType;
+  cost: Cost;
+  description: string;
+  title: string;
+};
+
+export type PaymentPeriod = 'monthly' | 'yearly';
+
+export interface FieldProps<T extends FieldValues> {
+  name: Path<T>;
+  register: UseFormRegister<T>;
+  errorMessage?: string;
+}
+
+type Cost = { monthly: number; yearly: number };
+type PlanType = 'arcade' | 'advanced' | 'pro';
+type AddonType = 'onlineService' | 'largerStorage' | 'customizableProfile';

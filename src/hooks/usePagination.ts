@@ -3,26 +3,17 @@ import { useState } from 'react';
 export default function usePagination(totalPages: number) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const moveTo = (index: number) => {
-    setActiveIndex(index);
-  };
+  const isLast = activeIndex === totalPages - 1;
+  const isFirst = activeIndex === 0;
 
-  const moveToNext = () => {
-    if (activeIndex < totalPages) {
-      setActiveIndex(activeIndex + 1);
-    }
-  };
-
-  const moveToPrevious = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-    }
-  };
+  const moveTo = (index: number) => setActiveIndex(index);
+  const moveToNext = () => !isLast && setActiveIndex((prev) => prev + 1);
+  const moveToPrevious = () => !isFirst && setActiveIndex((prev) => prev - 1);
 
   return {
     activeIndex,
-    isLastIndex: activeIndex === totalPages - 1,
-    isFirstIndex: activeIndex === 0,
+    isLast,
+    isFirst,
     moveToPrevious,
     moveToNext,
     moveTo,
