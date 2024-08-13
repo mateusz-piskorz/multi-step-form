@@ -17,10 +17,9 @@ describe('Step', () => {
   });
 
   test('renders title', () => {
-    const titleText = 'title example';
-    render(<Step displayedStep={1} selectedStep={2} title={titleText} />);
+    render(<Step {...defaultProps} />);
 
-    const titleEl = screen.getByText(titleText.toUpperCase());
+    const titleEl = screen.getByText(defaultProps.title.toUpperCase());
     expect(titleEl).toBeInTheDocument();
   });
 });

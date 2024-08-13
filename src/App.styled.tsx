@@ -60,7 +60,7 @@ export const StyledFormWrapper = styled.div<{ $className: string }>(
   },
 );
 
-export const Dialog = styled.div(() => {
+export const StyledDialog = styled.div(() => {
   return css`
     @media screen and (min-width: 768px) {
       display: flex;

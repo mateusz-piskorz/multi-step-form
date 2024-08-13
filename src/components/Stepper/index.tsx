@@ -46,7 +46,7 @@ const StyledStepper = styled.div<{ $className: string }>(
         &_container {
           justify-content: center;
           gap: 25px;
-          margin-top: 35px;
+          padding-top: 35px;
           display: flex;
         }
       }
