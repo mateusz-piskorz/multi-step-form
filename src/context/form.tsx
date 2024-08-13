@@ -1,8 +1,7 @@
-import React, { useContext, ReactNode, FC, useState } from 'react';
+import React, { useContext, ReactNode, useState } from 'react';
 import { formSchema } from '../zod/formSchema';
 import { z } from 'zod';
 import usePagination from '../hooks/usePagination';
-import { FORM_STEPS } from '../constants/formSteps';
 import { FormStep } from '../types/form';
 import { DEFAULT_FORM_VALUES } from '../constants/defaultFormValues';
 
@@ -21,11 +20,13 @@ type FormContextType = {
   moveTo: (index: number) => void;
 };
 
+type Props = { children: ReactNode; formSteps: FormStep[] };
+
 const Context = React.createContext<FormContextType | null>(null);
 
-export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const FormProvider = ({ children, formSteps }: Props) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { activeIndex, moveToNext, ...rest } = usePagination(FORM_STEPS.length);
+  const { activeIndex, moveToNext, ...rest } = usePagination(formSteps.length);
   const [formValues, setFormValues] = useState<FormValues>(DEFAULT_FORM_VALUES);
 
   const updateFormValues = (updatedValues: Partial<FormValues>) => {
@@ -43,7 +44,7 @@ export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
       value={{
         formValues,
         activeIndex,
-        currentStep: FORM_STEPS[activeIndex],
+        currentStep: formSteps[activeIndex],
         isSubmitted,
         updateFormValues,
         submit,
