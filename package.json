@@ -26,7 +26,8 @@
     "prettier:fix": "prettier . --write",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tsc:check": "tsc"
   },
   "eslintConfig": {
     "extends": [

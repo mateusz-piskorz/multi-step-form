@@ -8,6 +8,7 @@ function err() {
 
 npm run lint || err
 npm run prettier:check || err
+npm run tsc:check || err
 npm run test || err
 
 echo ""
