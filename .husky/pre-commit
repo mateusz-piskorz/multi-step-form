@@ -8,8 +8,8 @@ function err() {
 
 npm run lint || err
 npm run prettier:check || err
-npm run test || err
 npm run tsc:check || err
+npm run test || err
 
 echo ""
 echo "\033[1;32m✅ 🚀 Brawo wszystko działa\033[0m"
